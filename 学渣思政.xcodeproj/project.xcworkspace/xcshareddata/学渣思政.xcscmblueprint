@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "5F3D302C160E7DFBCDF08CB0C49746D0778D739D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "272F684BDB48C12FB82F63EFB90FF2436BBA2473" : 0,
+    "5F3D302C160E7DFBCDF08CB0C49746D0778D739D" : 0,
+    "E28E36D423EC87798E52E2BF482E9F7A1E6479D6" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2A22A6DC-4FEC-44D3-AF59-965D6B8C7A21",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "272F684BDB48C12FB82F63EFB90FF2436BBA2473" : "%E5%AD%A6%E6%B8%A3%E6%80%9D%E6%94%BF%EF%BC%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%89%88)07\/%E9%A2%98%E6%B5%B7%E7%A7%98%E7%B1%8D\/lib\/SDWebImage\/Vendors\/libwebp\/",
+    "5F3D302C160E7DFBCDF08CB0C49746D0778D739D" : "%E5%AD%A6%E6%B8%A3%E6%80%9D%E6%94%BF%EF%BC%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%89%88)07\/",
+    "E28E36D423EC87798E52E2BF482E9F7A1E6479D6" : "%E5%AD%A6%E6%B8%A3%E6%80%9D%E6%94%BF%EF%BC%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%89%88)07\/%E9%A2%98%E6%B5%B7%E7%A7%98%E7%B1%8D\/lib\/SDWebImage\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "学渣思政",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "学渣思政.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/webmproject\/libwebp",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "272F684BDB48C12FB82F63EFB90FF2436BBA2473"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AutoJiang\/myapp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5F3D302C160E7DFBCDF08CB0C49746D0778D739D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/rs\/SDWebImage.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E28E36D423EC87798E52E2BF482E9F7A1E6479D6"
+    }
+  ]
+}
