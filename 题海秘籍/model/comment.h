@@ -10,4 +10,12 @@
 
 @interface comment : NSObject
 
+@property (nonatomic, copy)NSString *uid;
+
+@property (nonatomic, copy)NSString *image;
+
+@property (nonatomic, copy)NSString *context;
+
+@property (nonatomic, copy)NSString *time;
+
 @end

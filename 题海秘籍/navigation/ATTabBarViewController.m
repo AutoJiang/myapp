@@ -16,6 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
+//    [UITabBar appearance].translucent = NO;
     // Do any additional setup after loading the view.
 }
 

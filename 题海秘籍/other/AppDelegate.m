@@ -42,6 +42,10 @@ BOOL isOut;
         [defaults synchronize];
     }
     [self.window makeKeyAndVisible];
+    //设置tab bar 颜色
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:227.0/255.0 green:28.0/255.0 blue:31.0/255.0 alpha:1]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
+    [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
     return YES;
 }
 
@@ -60,7 +64,6 @@ BOOL isOut;
         UIImageView *img=[[UIImageView alloc] initWithFrame:CGRectMake(i*width, 0, width, self.window.frame.size.height)];
         img.image=[UIImage imageNamed:arr[i]];
         [scr addSubview:img];
-//        [img release];
     }
     self.pageControl = [[UIPageControl alloc]init];
     self.pageControl.center = CGPointMake(width/2, height*0.93);

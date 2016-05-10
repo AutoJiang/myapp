@@ -13,7 +13,8 @@
 #import "readViewController.h"
 #import "searchViewController.h"
 #import "ATTableViewCell.h"
-#define ImageCount 5
+#import "orderViewController.h"
+#define ImageCount 5  //图片轮播个数
 
 static NSString *kheader = @"menuSectionHeader";
 static NSString *ksubSection = @"menuSubSection";
@@ -71,7 +72,7 @@ static NSString *ksubSection = @"menuSubSection";
     [self setMenuSections:self.sections];
     
 }
-
+//打开数据库
 -(void)openDb{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documents = [paths objectAtIndex:0];
@@ -280,10 +281,13 @@ static NSString *ksubSection = @"menuSubSection";
         NSMutableArray *sucSectionsB = [NSMutableArray array];
         NSMutableArray *sucSectionsC = [NSMutableArray array];
         NSMutableArray *sucSectionsD = [NSMutableArray array];
+        NSMutableArray *sucSectionsE = [NSMutableArray array];
         for (int i = 0 ; i < self.Singletopic.count; i++) {
             NSString *str =[NSString stringWithFormat:@"第%d章",i+1];
             [sucSectionsA addObject :str];
+            [sucSectionsE addObject :str];
             [sucSectionsC addObject :str];
+
         }
         NSDictionary *sectionA = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"题库浏览", kheader,
@@ -293,27 +297,25 @@ static NSString *ksubSection = @"menuSubSection";
                                   @"错题集", kheader,
                                   sucSectionsB, ksubSection,
                                   nil];
+        NSDictionary *sectionE = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  @"章节练习(顺序)", kheader,
+                                  sucSectionsC, ksubSection,
+                                  nil];
         NSDictionary *sectionC = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  @"章节练习", kheader,
+                                  @"章节练习(随机)", kheader,
                                   sucSectionsC, ksubSection,
                                   nil];
         NSDictionary *sectionD = [NSDictionary dictionaryWithObjectsAndKeys:
                                   @"模拟考场", kheader,
                                   sucSectionsD, ksubSection,
                                   nil];
-        _sections = [NSArray arrayWithObjects:sectionA,sectionB,sectionC,sectionD,nil];
+        _sections = [NSArray arrayWithObjects:sectionA,sectionB,sectionE,sectionC,sectionD,nil];
     }
     return _sections;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ATTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sctionCell" forIndexPath:indexPath];
-//
-////    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    if (cell == nil) {
-//        cell = [[ATTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sctionCell"];
-//    }
     static NSString *ID = @"identifier";
     ATTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
@@ -328,14 +330,14 @@ static NSString *ksubSection = @"menuSubSection";
     if (section == 0) {
         return @"题库浏览";
     }
-    if (section == 2) {
+    if (section == 2||section ==3) {
         return @"章节练习";
     }
     return nil;
 }
 
 -(void)didSelectAction:(NSIndexPath *)indexPath{
-    if ((indexPath.section == 0 && indexPath.row==0 )|| (indexPath.section == 2 && indexPath.row == 0)) {
+    if ((indexPath.section == 0 && indexPath.row==0 )|| (indexPath.section == 2 && indexPath.row == 0)||(indexPath.section == 3 && indexPath.row == 0)) {
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         return;
     }
@@ -362,7 +364,7 @@ static NSString *ksubSection = @"menuSubSection";
         [alert addAction:cancel];
         [self presentViewController:alert animated:true completion:nil];
     }
-    if (indexPath.section == 1||indexPath.section == 2) {
+    if (indexPath.section == 1||indexPath.section == 2||indexPath.section == 3) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请选择答题的类型" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"单选" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             if (indexPath.section == 1 && !self.SingleWrong.count) {
@@ -371,8 +373,13 @@ static NSString *ksubSection = @"menuSubSection";
                 [alert2 addAction:action];
                 [self presentViewController:alert2 animated:true completion:nil];
             }
-            [self performSegueWithIdentifier:@"selectTowork" sender:nil];
+            if (indexPath.section == 2) {
+                [self performSegueWithIdentifier:@"selectToOrder" sender:nil];
+            }else{
+                [self performSegueWithIdentifier:@"selectTowork" sender:nil];
+            }
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+
         }];
         UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"多选" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             if (indexPath.section == 1 && !self.DoubleWrong.count) {
@@ -382,7 +389,11 @@ static NSString *ksubSection = @"menuSubSection";
                 [self presentViewController:alert2 animated:true completion:nil];
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
             }
-            [self performSegueWithIdentifier:@"selectToDwork" sender:nil];
+            if (indexPath.section == 2) {
+                [self performSegueWithIdentifier:@"selectToOrder" sender:nil];
+            }else{
+                [self performSegueWithIdentifier:@"selectToDwork" sender:nil];
+            }
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -394,7 +405,7 @@ static NSString *ksubSection = @"menuSubSection";
         [alert addAction:cancel];
         [self presentViewController:alert animated:true completion:nil];
     }
-    else if(indexPath.section == 3){
+    else if(indexPath.section == 4){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您将在30分钟内完成60道单选和20道多选，是否要进入？" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *defaults = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self performSegueWithIdentifier:@"selectToExam" sender:nil];
@@ -410,7 +421,7 @@ static NSString *ksubSection = @"menuSubSection";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%ld,%ld",indexPath.section,indexPath.row);
-    if (indexPath.section == 1||indexPath.section == 3) {
+    if (indexPath.section == 1||indexPath.section == 4) {
         [self didSelectAction:indexPath];
         return;
     }
@@ -471,7 +482,7 @@ static NSString *ksubSection = @"menuSubSection";
             for (NSMutableArray *oj in self.SingleWrong) {
                 [wc.tpArray addObject:oj];
             }
-        }else if(indexpath.section ==2){
+        }else if(indexpath.section ==2||indexpath.section ==3){
             wc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
         }
         wc.delegate = self;
@@ -488,7 +499,7 @@ static NSString *ksubSection = @"menuSubSection";
             for (NSMutableArray *oj in self.DoubleWrong) {
                 [dw.tpArray addObject:oj];
             }
-        }else if(indexpath.section == 2){
+        }else if(indexpath.section == 2||indexpath.section == 3){
             dw.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
         }
         dw.delegate = self;
@@ -525,6 +536,15 @@ static NSString *ksubSection = @"menuSubSection";
             NSMutableArray *temp = self.Doubletopic[i];
             [sv.allArray addObjectsFromArray:temp];
         }
+    }else if ([segue.destinationViewController isKindOfClass:[orderViewController class]]){
+        orderViewController *oc = segue.destinationViewController;
+        oc.record = NO;
+        oc.voice = self.voice;
+        oc.shake = self.shake;
+        oc.name = self.name;
+        NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
+        oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+        oc.delegate = self;
     }
 }
 

@@ -6,10 +6,25 @@
 //  Copyright © 2016年 Auto. All rights reserved.
 //
 
+
 #ifndef Prefix_pch
 #define Prefix_pch
 
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import<Foundation/Foundation.h>
+
+#define myURL @"http:localhost:8080/myapp"
+#import <UIKit/UIKit.h>
+#import "UIView+Extension.h"
+#import "AFHTTPRequestOperationManager.h"
+
+#ifdef DEBUG // 调试状态, 打开LOG功能
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else // 发布状态, 关闭LOG功能
+#define NSLog(...)
+#endif
+
+
+//#define RUL @"http:localhost:8080/myapp"
+
 
 #endif /* Prefix_pch */

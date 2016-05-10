@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,13 +45,17 @@
     param[@"sex"]= self.user.sex;
     param[@"brief"] = self.user.brief;
     NSString *path = [myURL stringByAppendingString:upload];
+
     [manager POST:path parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSString *fileName = [NSString stringWithFormat:@"%@.png",self.user.uid];
         
         NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentImage.png"];
 
         NSData *imageData = [NSData dataWithContentsOfFile:fullPath];
-        [formData appendPartWithFileData:imageData name:@"image" fileName:fileName mimeType:@"image/png"];
+        if (imageData != NULL) {
+            [formData appendPartWithFileData:imageData name:@"image" fileName:fileName mimeType:@"image/png"];
+        }
+
     } success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
         //清除缓存
         [[SDImageCache sharedImageCache] clearDisk];

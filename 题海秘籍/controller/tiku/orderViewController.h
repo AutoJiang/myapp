@@ -7,7 +7,23 @@
 //
 
 #import "ATViewController.h"
+@class workViewController;
+@protocol workViewControllerDelegate <NSObject>
+
+-(void)saveWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray;
+-(void)deleteWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray;
+@end
 
 @interface orderViewController : ATViewController
 
+
+
+@property (nonatomic ,strong) NSMutableArray *tpArray;
+@property (nonatomic ,assign) BOOL record;
+
+
+
+@property(nonatomic ,strong)NSString *name;
+
+@property(nonatomic,weak)id<workViewControllerDelegate>delegate;
 @end
