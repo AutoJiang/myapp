@@ -2,21 +2,13 @@
 //  ATshowView.m
 //  学渣思政
 //
-//  Created by jiang aoteng on 16/3/20.
+//  Created by jiang aoteng on 16/5/10.
 //  Copyright © 2016年 Auto. All rights reserved.
 //
 
 #import "ATshowView.h"
 
-
-@interface ATshowView ()
-
-
-@end
-
 @implementation ATshowView
-
-
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -25,40 +17,32 @@
     // Drawing code
 }
 */
--(instancetype)initWithFrame:(CGRect)frame{
+
+
+-(ATshowView*)initWithFrame:(CGRect)frame withFont:(UIFont*)font data:(data*)data{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor redColor];
+        UITextView *topicTextField = [[UITextView alloc]init];
+        
+        topicTextField.x = frame.size.width*0.05;
+        topicTextField.y = frame.size.height*0.1;
+        topicTextField.width =frame.size.width*0.9;
+        topicTextField.userInteractionEnabled = NO;
+        topicTextField.backgroundColor = [UIColor greenColor];
+        [self addSubview:topicTextField];
+        _topicTextField = topicTextField;
+        _font = font;
+        [self reloadData:data];
     }
     return self;
 }
--(void)initContentViewWithString:(NSString *)content{
-    UITextField * filed = [[UITextField alloc]init];
-    filed.text = content;
-
-    filed.font = [UIFont systemFontOfSize:13];
-    CGFloat w = self.frame.size.width*0.2;
-    
-    CGRect rect = [filed.text boundingRectWithSize:CGSizeMake(w, MAXFLOAT)  options: NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:filed.font} context:nil];
-    filed.bounds = CGRectMake(0, 0, w, rect.size.height);
-    filed.center = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
-    NSLog(@"%@",filed);
-    filed.backgroundColor = [UIColor brownColor];
-    filed.contentMode = UIViewContentModeScaleToFill;
-    [self addSubview:filed];
-    
-    UIButton *btn_1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn_1.frame = CGRectMake(filed.frame.origin.x, filed.frame.origin.y+filed.frame.size.height,self.frame.size.width * 0.25 , self.frame.size.height *0.05);
-    [btn_1 setBackgroundColor:[UIColor greenColor]];
-    btn_1.titleLabel.text = @"确定";
-    [self addSubview:btn_1];
-    
-    UIButton *btn_2 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn_2.frame = CGRectMake(filed.frame.origin.x+filed.frame.size.width*0.5, filed.frame.origin.y+filed.frame.size.height,self.frame.size.width * 0.25 , self.frame.size.height *0.05);
-    [btn_2 setBackgroundColor:[UIColor greenColor]];
-    btn_2.titleLabel.text = @"取笑";
-    btn_2.titleLabel.backgroundColor = [UIColor whiteColor];
-    [self addSubview:btn_2];
+-(void)reloadData:(data*)data{
+    _topicTextField.text = data.title;
+    [self updateHeight];
+}
+-(void)updateHeight{
+    CGSize contentSize = [_topicTextField.text sizeWithFont:_font constrainedToSize:CGSizeMake(_topicTextField.width, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
+    _topicTextField.height = contentSize.height+10;
 }
 
 @end

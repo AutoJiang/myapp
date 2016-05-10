@@ -30,6 +30,7 @@
         _myfont = 15;
         _interval =50;
     }
+    _font = [UIFont systemFontOfSize:_myfont];
 }
 
 - (void)viewDidLoad {

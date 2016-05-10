@@ -13,6 +13,8 @@
 @property (nonatomic ,assign)CGFloat myfont;
 @property (nonatomic ,assign)CGFloat interval;
 
+@property (nonatomic, strong)UIFont *font;
+
 @property (nonatomic ,assign) BOOL voice;
 @property (nonatomic ,assign) BOOL shake;
 
