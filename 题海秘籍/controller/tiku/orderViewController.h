@@ -7,23 +7,21 @@
 //
 
 #import "ATViewController.h"
-@class workViewController;
-@protocol workViewControllerDelegate <NSObject>
+@class orderViewController;
+@protocol orderViewControllerDelegate <NSObject>
 
--(void)saveWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray;
--(void)deleteWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray;
+-(void)saveWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray;
+-(void)deleteWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray;
 @end
 
 @interface orderViewController : ATViewController
 
 
-
 @property (nonatomic ,strong) NSMutableArray *tpArray;
 @property (nonatomic ,assign) BOOL record;
 
-
-
+@property (nonatomic,assign) NSInteger type;
 @property(nonatomic ,strong)NSString *name;
 
-@property(nonatomic,weak)id<workViewControllerDelegate>delegate;
+@property(nonatomic,weak)id<orderViewControllerDelegate>delegate;
 @end

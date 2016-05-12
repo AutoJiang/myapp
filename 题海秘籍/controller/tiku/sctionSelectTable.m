@@ -19,7 +19,7 @@
 static NSString *kheader = @"menuSectionHeader";
 static NSString *ksubSection = @"menuSubSection";
 
-@interface sctionSelectTable ()<workViewControllerDelegate,doubleWorkViewControllerDelegate,UIScrollViewDelegate>
+@interface sctionSelectTable ()<workViewControllerDelegate,doubleWorkViewControllerDelegate,orderViewControllerDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong) NSMutableArray *Singletopic;
 @property (nonatomic,strong) NSMutableArray *Doubletopic;
 @property (nonatomic,strong) NSMutableSet *SingleWrong;
@@ -374,7 +374,7 @@ static NSString *ksubSection = @"menuSubSection";
                 [self presentViewController:alert2 animated:true completion:nil];
             }
             if (indexPath.section == 2) {
-                [self performSegueWithIdentifier:@"selectToOrder" sender:nil];
+                [self performSegueWithIdentifier:@"selectToOrder" sender:@0];
             }else{
                 [self performSegueWithIdentifier:@"selectTowork" sender:nil];
             }
@@ -390,7 +390,7 @@ static NSString *ksubSection = @"menuSubSection";
                 [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
             }
             if (indexPath.section == 2) {
-                [self performSegueWithIdentifier:@"selectToOrder" sender:nil];
+                [self performSegueWithIdentifier:@"selectToOrder" sender:@1];
             }else{
                 [self performSegueWithIdentifier:@"selectToDwork" sender:nil];
             }
@@ -434,22 +434,22 @@ static NSString *ksubSection = @"menuSubSection";
     }
     [self didSelectAction:indexPath];
 }
-#pragma workViewController delegate
--(void)saveWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray{
-    if (self.SingleWrong ==nil) {
-        self.SingleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
-    }else{
-        [self.SingleWrong addObjectsFromArray:WrongArray];
-    }
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
-    NSLog(@"%@",path);
-    [NSKeyedArchiver archiveRootObject:self.SingleWrong toFile:path];
-}
--(void)deleteWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray{
-    if (WrongArray !=nil) {
-        [self.SingleWrong removeObject:WrongArray];
-    }
-}
+//#pragma workViewController delegate
+//-(void)saveWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray{
+//    if (self.SingleWrong ==nil) {
+//        self.SingleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
+//    }else{
+//        [self.SingleWrong addObjectsFromArray:WrongArray];
+//    }
+//    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
+//    NSLog(@"%@",path);
+//    [NSKeyedArchiver archiveRootObject:self.SingleWrong toFile:path];
+//}
+//-(void)deleteWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray{
+//    if (WrongArray !=nil) {
+//        [self.SingleWrong removeObject:WrongArray];
+//    }
+//}
 #pragma doubleViewController delegate
 
 -(void)saveDwrongTpic:(doubleWorkViewController *)dworkView wrong:(NSMutableArray *)WrongArray{
@@ -466,7 +466,35 @@ static NSString *ksubSection = @"menuSubSection";
         [self.DoubleWrong removeObject:WrongArray];
     }
 }
+#pragma orderViewControllerDelegate
+-(void)saveWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray{
+    if (workView.type == 0) {
+        if (self.SingleWrong ==nil) {
+            self.SingleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
+//            self.SingleWrong = [[NSMutableSet alloc]initWithObjects:WrongArray];
+        }else{
+            [self.SingleWrong addObjectsFromArray:WrongArray];
+//            [self.SingleWrong addObject:WrongArray];
+        }
+        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
+        NSLog(@"%@",path);
+        [NSKeyedArchiver archiveRootObject:self.SingleWrong toFile:path];
+    }else if (workView.type == 1){
+        if (self.DoubleWrong ==nil) {
+            self.DoubleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
+        }else{
+            [self.DoubleWrong addObjectsFromArray:WrongArray];
+        }
+        NSString *pathd = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/D%@.ctj",self.bookName]];
+        [NSKeyedArchiver archiveRootObject:self.DoubleWrong toFile:pathd];
+    }
 
+}
+-(void)deleteWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray{
+    if (WrongArray !=nil) {
+        [self.SingleWrong removeObject:WrongArray];
+    }
+}
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -543,7 +571,14 @@ static NSString *ksubSection = @"menuSubSection";
         oc.shake = self.shake;
         oc.name = self.name;
         NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-        oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+        NSInteger type = [sender integerValue];
+        oc.type = type ;
+        if (oc.type == 0) {
+            oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+        }else{
+            oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
+        }
+
         oc.delegate = self;
     }
 }

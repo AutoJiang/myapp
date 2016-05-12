@@ -25,17 +25,16 @@
 
 @property (weak, nonatomic) ATshowView *mainView;
 
-@property (weak, nonatomic) ATshowView *lastView;
-
 @property (weak, nonatomic) ATshowView *nextView;
 
 @property (assign, nonatomic) NSInteger index;
+
+@property (strong,nonatomic)NSMutableArray *wrong;
 
 @property (copy, nonatomic) NSMutableArray *datas;
 
 @property (nonatomic ,strong)UISwipeGestureRecognizer *leftSwipe;
 @property (nonatomic ,strong)UISwipeGestureRecognizer *rightSwipe;
-
 
 @end
 
@@ -53,7 +52,7 @@
 }
 
 -(void)loadNext{
-    if (self.index == self.datas.count) {
+    if (self.index == self.datas.count-1) {
         return;
     }
     [self changeView:1];
@@ -70,59 +69,17 @@
     data *temp = self.datas[self.index];
     NSLog(@"%@",temp.title);
     ATshowView *tpView;
-    switch (type) {
-        case 0:
-            self.mainView = [self getMainViewInsert:self.menView data:temp];//4
-            if (self.index+1 == self.datas.count) {
-                temp = [[data alloc]init];
-            }else{
-                temp = self.datas[self.index+1];
-            }
-            self.nextView = [self getMainViewInsert:self.mainView data:temp];//3
-            self.nextView.backgroundColor = [UIColor redColor];
-            if (self.index-1 < 0) {
-                temp = [[data alloc]init];
-            }else{
-                temp = self.datas[self.index-1];
-            }
-            self.lastView = [self getMainViewInsert:self.nextView data:temp];//2
-            self.lastView.backgroundColor = [UIColor greenColor];
-            break;
-        case 1:
-//            [self trsanformAnimationIndex:3 withindex:4 type:@"pageCurl"];
-//            [self trsanformAnimationIndex:2 withindex:3 type:@"pageCurl"];
-            tpView = self.mainView;
-            self.mainView = self.nextView;
-            self.nextView = tpView;
-            [self didLastAndNext];
-            [self trsanformAnimationIndex:3 withindex:4 type:@"pageCurl"];
-            break;
-        case -1:
-//            [self trsanformAnimationIndex:2 withindex:4 type:@"pageUnCurl"];
-//            [self trsanformAnimationIndex:3 withindex:2 type:@"pageCurl"];
-            tpView = self.mainView;
-            self.mainView = self.lastView;
-            self.lastView = tpView;
-            [self didLastAndNext];
-            [self trsanformAnimationIndex:2 withindex:4 type:@"pageUnCurl"];
-        default:
-            break;
+    if (type == 0 && self.mainView ==nil) {
+        self.mainView = [self getMainViewInsert:self.menView data:temp];//3
+        self.mainView.backgroundColor = [UIColor yellowColor];
+        return;
     }
-}
--(void)didLastAndNext{
-    data *temp;
-    if (self.index +1 == self.datas.count) {
-        temp = [[data alloc]init];
-    }else{
-        temp = self.datas[self.index+1];
-    }
-    [self.nextView reloadData:temp];
-    if (self.index -1 < 0) {
-        temp = [[data alloc]init];
-    }else{
-        temp = self.datas[self.index-1];
-    }
-    [self.lastView reloadData:temp];
+    self.nextView = [self getMainViewInsert:self.mainView data:temp];//2
+    [self trsanformAnimationIndex:2 withindex:3 type: type ==1? @"pageCurl":@"pageUnCurl"];
+    tpView = self.mainView;
+    self.mainView = self.nextView;
+    self.nextView = tpView;
+    [self.nextView removeFromSuperview];
 }
 
 -(void)trsanformAnimationIndex:(NSInteger )indexA withindex:(NSInteger)indexB type:(NSString *)type{
@@ -142,8 +99,12 @@
 
 -(ATshowView *)getMainViewInsert:(UIView *)belowSubview data:(data *)temp{
     ATshowView *mainView=[[ATshowView alloc]initWithFrame:CGRectMake(0,44, screenWidth, screenHeight*0.9-44) withFont:self.font data:temp];
+    mainView.showType = self.type;
     [self.view insertSubview:mainView belowSubview:belowSubview];
     [mainView reloadData:temp];
+    mainView.addWrong = ^(){
+        [self.wrong addObject:self.tpArray[self.index]];
+    };
     return mainView;
 }
 
@@ -154,7 +115,7 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-        [self changeView:0];
+    [self changeView:0];
 }
 
 - (void)viewDidLoad {
@@ -200,7 +161,7 @@
     for (int i = 0 ; i < self.datas.count;){
         for (int j = 0; j < line; j++,i++) {
             if(i== self.datas.count)
-                return;
+                break;
             CGFloat posX = (mag+radius)*j+mag;
             CGFloat posY = (mag+radius)*(i/line)+mag;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -212,14 +173,32 @@
             [button addTarget:self action:@selector(chooseBtn:) forControlEvents:UIControlEventTouchUpInside];
         }
     }
-    CGFloat conentHeight = mag + (self.datas.count/line)*(mag+radius);
+    CGFloat conentHeight = mag + ((self.datas.count+line-1)/line)*(mag+radius);
     scrollView.contentSize = CGSizeMake(screenWidth, conentHeight);
     [self.listView addSubview:scrollView];
+    
+    UIBarButtonItem * leftBarItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(goBack)];
+    self.navigationItem.leftBarButtonItem = leftBarItem;
+    
 }
+-(void)goBack{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您尚未完成全部答题，是否保存错题并退出？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *defauts = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([self.delegate respondsToSelector:@selector(saveWrongTpic:wrong:)]) {
+            [self.delegate saveWrongTpic:self wrong:self.wrong];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    [alert addAction:defauts];
+    [self presentViewController:alert animated:true completion:nil];
+}
+
 -(void)chooseBtn:(UIButton *)btn{
-    self.index = btn.tag;
+    self.index = btn.tag-1;
     [self listShow];
-    [self changeView:0];
+    [self changeView:1];
 }
 
 -(void)listShow{
@@ -236,12 +215,11 @@
         self.listBtn.tag = 0;
         self.menView.alpha = 0;
     }
-    
 }
 -(NSMutableArray *)datas{
     if (_datas == nil) {
         _datas = [NSMutableArray array];
-        for (int i=0 ; i < self.tpArray.count; i++) {
+        for (int i = 0 ; i < self.tpArray.count; i++) {
             data *da = [[data alloc]init];
             [da dataFromArray:self.tpArray[i]];
             [_datas addObject:da];
@@ -249,5 +227,12 @@
         self.index = 0;
     }
     return _datas;
+}
+
+-(NSMutableArray *)wrong{
+    if (_wrong ==nil) {
+        _wrong = [NSMutableArray array];
+    }
+    return _wrong;
 }
 @end

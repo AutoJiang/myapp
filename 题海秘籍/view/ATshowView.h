@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "data.h"
+typedef NS_ENUM(NSInteger,showType){
+    showTypeSingle,
+    showTypeDouble
+};
 
 @interface ATshowView : UIScrollView
 
@@ -15,7 +19,12 @@
 
 @property (weak, nonatomic) UIFont *font;
 
+@property (nonatomic, assign)showType showType;
+
+@property (nonatomic, copy) void(^addWrong)(void);
+
 -(void)reloadData:(data*)data;
 
 -(ATshowView*)initWithFrame:(CGRect)frame withFont:(UIFont*)font data:(data*)data;
+
 @end

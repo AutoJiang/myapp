@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol QCheckBoxDelegate;
+@protocol ATCheckBoxDelegate;
 
-@interface QCheckBox : UIButton {
-    id<QCheckBoxDelegate> delegate;
+@interface ATCheckBox : UIButton {
+    id<ATCheckBoxDelegate> delegate;
     BOOL _checked;
     id _userInfo;
 }
 
-@property(nonatomic, assign)id<QCheckBoxDelegate> delegate;
+@property(nonatomic, assign)id<ATCheckBoxDelegate> delegate;
 @property(nonatomic, assign)BOOL checked;
 @property(nonatomic, retain)id userInfo;
 
@@ -24,10 +24,10 @@
 
 @end
 
-@protocol QCheckBoxDelegate <NSObject>
+@protocol ATCheckBoxDelegate <NSObject>
 
 @optional
 
-- (void)didSelectedCheckBox:(QCheckBox *)checkbox checked:(BOOL)checked;
+- (void)didSelectedCheckBox:(ATCheckBox *)checkbox checked:(BOOL)checked;
 
 @end

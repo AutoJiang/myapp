@@ -6,12 +6,12 @@
 //  Copyright (c) 2013年 ivan. All rights reserved.
 //
 
-#import "QCheckBox.h"
+#import "ATCheckBox.h"
 
 #define Q_CHECK_ICON_WH                    (30.0)
 #define Q_ICON_TITLE_MARGIN                (5.0)
 #define MARGIN                              10
-@implementation QCheckBox
+@implementation ATCheckBox
 
 @synthesize delegate = _delegate;
 @synthesize checked = _checked;
@@ -51,7 +51,7 @@
     
     _checked = checked;
     self.selected = checked;
-    
+
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectedCheckBox:checked:)]) {
         [_delegate didSelectedCheckBox:self checked:self.selected];
     }

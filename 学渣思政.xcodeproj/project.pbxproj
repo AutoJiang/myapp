@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C90224581CE2C13D00300557 /* ATCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C90224571CE2C13D00300557 /* ATCheckBox.m */; };
+		C90224591CE3895C00300557 /* orderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A82C1CDF914A00B9987C /* orderViewController.m */; };
 		C90390F31CD5015D00164068 /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C90390F11CD5015D00164068 /* myTableViewCell.m */; };
 		C90390F41CD5015D00164068 /* myTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C90390F21CD5015D00164068 /* myTableViewCell.xib */; };
 		C9324BBE1CDE3F61004157E8 /* comment.m in Sources */ = {isa = PBXBuildFile; fileRef = C9324BBD1CDE3F61004157E8 /* comment.m */; };
@@ -54,7 +56,6 @@
 		C9C3A8251CDEE7B900B9987C /* ATTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A8241CDEE7B900B9987C /* ATTabBarViewController.m */; };
 		C9C3A8291CDF367F00B9987C /* commetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A8271CDF367F00B9987C /* commetTableViewCell.m */; };
 		C9C3A82A1CDF367F00B9987C /* commetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C3A8281CDF367F00B9987C /* commetTableViewCell.xib */; };
-		C9C3A82D1CDF914A00B9987C /* orderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C3A82C1CDF914A00B9987C /* orderViewController.m */; };
 		C9CECFB71CDBA12F00F5C095 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CECF971CDBA12F00F5C095 /* MKAnnotationView+WebCache.m */; };
 		C9CECFB81CDBA12F00F5C095 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CECF991CDBA12F00F5C095 /* NSData+ImageContentType.m */; };
 		C9CECFB91CDBA12F00F5C095 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CECF9B1CDBA12F00F5C095 /* SDImageCache.m */; };
@@ -105,6 +106,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C90224561CE2C13D00300557 /* ATCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATCheckBox.h; sourceTree = "<group>"; };
+		C90224571CE2C13D00300557 /* ATCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATCheckBox.m; sourceTree = "<group>"; };
 		C90390F01CD5015D00164068 /* myTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myTableViewCell.h; sourceTree = "<group>"; };
 		C90390F11CD5015D00164068 /* myTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myTableViewCell.m; sourceTree = "<group>"; };
 		C90390F21CD5015D00164068 /* myTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myTableViewCell.xib; sourceTree = "<group>"; };
@@ -399,6 +402,8 @@
 				C95118791C8DA1E100ABB64B /* MBProgressHUD */,
 				C951187F1C8DA1E100ABB64B /* QCheckBox.h */,
 				C95118801C8DA1E100ABB64B /* QCheckBox.m */,
+				C90224561CE2C13D00300557 /* ATCheckBox.h */,
+				C90224571CE2C13D00300557 /* ATCheckBox.m */,
 				C9D82F621C95D15600AAA52E /* ATTableViewCell.h */,
 				C9D82F631C95D15600AAA52E /* ATTableViewCell.m */,
 				C90390F01CD5015D00164068 /* myTableViewCell.h */,
@@ -740,6 +745,7 @@
 				C9CECFC51CDBA12F00F5C095 /* UIImageView+WebCache.m in Sources */,
 				C9CECFBD1CDBA12F00F5C095 /* SDWebImageDownloaderOperation.m in Sources */,
 				C9CECFC31CDBA12F00F5C095 /* UIImage+WebP.m in Sources */,
+				C90224591CE3895C00300557 /* orderViewController.m in Sources */,
 				C9CECFBA1CDBA12F00F5C095 /* SDWebImageCompat.m in Sources */,
 				C9E5A0CA1CDD93EF00F7BCE8 /* sctionSelectTable.m in Sources */,
 				C941A17D1CD34CC500D9C703 /* AFHTTPRequestOperation.m in Sources */,
@@ -771,6 +777,7 @@
 				C941A1851CD34CC500D9C703 /* AFURLSessionManager.m in Sources */,
 				C9E5A0C51CDD93EF00F7BCE8 /* YSHYClipViewController.m in Sources */,
 				C986FBE41CE1B7960029EC75 /* data.m in Sources */,
+				C90224581CE2C13D00300557 /* ATCheckBox.m in Sources */,
 				C9CECFC61CDBA12F00F5C095 /* UIView+WebCacheOperation.m in Sources */,
 				C9CECFBE1CDBA12F00F5C095 /* SDWebImageManager.m in Sources */,
 				C941A17F1CD34CC500D9C703 /* AFHTTPSessionManager.m in Sources */,
@@ -786,7 +793,6 @@
 				C90390F31CD5015D00164068 /* myTableViewCell.m in Sources */,
 				C9E5A0CC1CDD93EF00F7BCE8 /* workViewController.m in Sources */,
 				C941A1831CD34CC500D9C703 /* AFURLRequestSerialization.m in Sources */,
-				C9C3A82D1CDF914A00B9987C /* orderViewController.m in Sources */,
 				C948DE4A1CD5E69200667EEC /* user.m in Sources */,
 				C9D777861BF104D600E87542 /* userDefault.m in Sources */,
 				C9CECFB81CDBA12F00F5C095 /* NSData+ImageContentType.m in Sources */,

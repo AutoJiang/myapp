@@ -14,7 +14,23 @@
     self.title = array[0];
     self.answer =[array lastObject];
     for (int i = 0; i < array.count-2; i++) {
-        self.opArray[i] = array[i+1];
+        [self.opArray addObject:array[i+1]];
+        [self.statusAraay addObject:[NSNumber numberWithInt:statusNomal]];
     }
 }
+
+-(NSMutableArray *)opArray{
+    if (_opArray == nil) {
+        _opArray = [NSMutableArray array];
+    }
+    return _opArray;
+}
+
+-(NSMutableArray *)statusAraay{
+    if (_statusArray == nil) {
+        _statusArray = [NSMutableArray array];
+    }
+    return _statusArray;
+}
+
 @end
