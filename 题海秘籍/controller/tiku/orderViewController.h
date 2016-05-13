@@ -7,6 +7,7 @@
 //
 
 #import "ATViewController.h"
+#import "data.h"
 @class orderViewController;
 @protocol orderViewControllerDelegate <NSObject>
 
@@ -14,14 +15,26 @@
 -(void)deleteWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray;
 @end
 
-@interface orderViewController : ATViewController
+@interface orderViewController : ATViewController{
+//    @protected NSMutableArray *datas;
+//    @property (copy, nonatomic) NSMutableArray *datas;
+}
 
 
 @property (nonatomic ,strong) NSMutableArray *tpArray;
-@property (nonatomic ,assign) BOOL record;
+@property (nonatomic ,copy) NSString *record;
 
 @property (nonatomic,assign) NSInteger type;
-@property(nonatomic ,strong)NSString *name;
+@property(nonatomic ,copy)NSString *name;
+@property (strong, nonatomic) NSMutableArray *datas;
+
+
+//@property(nonatomic ,copy)NSString *key;
+@property (assign, nonatomic) NSInteger index;
 
 @property(nonatomic,weak)id<orderViewControllerDelegate>delegate;
+
+-(NSString *)filePath;
+
 @end
+

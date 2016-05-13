@@ -14,6 +14,7 @@
 #import "searchViewController.h"
 #import "ATTableViewCell.h"
 #import "orderViewController.h"
+#import "randomViewController.h"
 #define ImageCount 5  //图片轮播个数
 
 static NSString *kheader = @"menuSectionHeader";
@@ -376,7 +377,22 @@ static NSString *ksubSection = @"menuSubSection";
             if (indexPath.section == 2) {
                 [self performSegueWithIdentifier:@"selectToOrder" sender:@0];
             }else{
-                [self performSegueWithIdentifier:@"selectTowork" sender:nil];
+//                [self performSegueWithIdentifier:@"selectTowork" sender:nil];
+                randomViewController *rv = [[randomViewController alloc]init];
+                rv.voice = self.voice;
+                rv.shake = self.shake;
+                NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
+//                NSInteger type = [sender integerValue];
+                rv.type = 0 ;
+                if (rv.type == 0) {
+                    rv.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+                }else{
+                    rv.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
+                }
+                rv.record = [NSString stringWithFormat:@"%@_%ld_%ld_R",self.bookName,indexpath.row,rv.type];
+                NSLog(@"%@",rv.record);
+                rv.delegate = self;
+                [self.navigationController pushViewController:rv animated:true];
             }
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
 
@@ -566,10 +582,8 @@ static NSString *ksubSection = @"menuSubSection";
         }
     }else if ([segue.destinationViewController isKindOfClass:[orderViewController class]]){
         orderViewController *oc = segue.destinationViewController;
-        oc.record = NO;
         oc.voice = self.voice;
         oc.shake = self.shake;
-        oc.name = self.name;
         NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
         NSInteger type = [sender integerValue];
         oc.type = type ;
@@ -578,9 +592,9 @@ static NSString *ksubSection = @"menuSubSection";
         }else{
             oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
         }
-
+        oc.record = [NSString stringWithFormat:@"%@_%ld_%ld",self.bookName,indexpath.row,type];
+        NSLog(@"%@",oc.record);
         oc.delegate = self;
     }
 }
-
 @end

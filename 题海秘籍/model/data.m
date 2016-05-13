@@ -7,6 +7,16 @@
 //
 
 #import "data.h"
+#define kopArray @"opArray"
+#define ktitle @"title"
+#define kanswer @"answer"
+#define kstatusArray @"statusArray"
+#define kdone @"done"
+#define kisRight @"isRight"
+
+@interface data ()<NSCoding>
+
+@end
 
 @implementation data
 
@@ -31,6 +41,27 @@
         _statusArray = [NSMutableArray array];
     }
     return _statusArray;
+}
+#pragma mark - NSCoding
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:_title forKey:ktitle];
+    [aCoder encodeObject:_opArray forKey:kopArray];
+    [aCoder encodeObject:_answer forKey:kanswer];
+    [aCoder encodeObject:_statusArray forKey:kstatusArray];
+    [aCoder encodeBool:_done forKey:kdone];
+    [aCoder encodeBool:_isRight forKey:kisRight];
+}
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+    if (self = [super init]) {
+        _title = [aDecoder decodeObjectForKey:ktitle];
+        _opArray = [aDecoder decodeObjectForKey:kopArray];
+        _answer = [aDecoder decodeObjectForKey:kanswer];
+        _statusArray = [aDecoder decodeObjectForKey:kstatusArray];
+        _done = [aDecoder decodeObjectForKey:kdone];
+        _isRight = [aDecoder decodeObjectForKey:kisRight];
+    }
+    return self;
 }
 
 @end

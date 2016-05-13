@@ -16,7 +16,6 @@
 
 @interface orderViewController ()
 
-
 @property(weak,nonatomic)UIView *listView;
 
 @property (weak, nonatomic)UIButton *menView;
@@ -27,11 +26,8 @@
 
 @property (weak, nonatomic) ATshowView *nextView;
 
-@property (assign, nonatomic) NSInteger index;
 
 @property (strong,nonatomic)NSMutableArray *wrong;
-
-@property (copy, nonatomic) NSMutableArray *datas;
 
 @property (nonatomic ,strong)UISwipeGestureRecognizer *leftSwipe;
 @property (nonatomic ,strong)UISwipeGestureRecognizer *rightSwipe;
@@ -177,22 +173,47 @@
     scrollView.contentSize = CGSizeMake(screenWidth, conentHeight);
     [self.listView addSubview:scrollView];
     
-    UIBarButtonItem * leftBarItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:self action:@selector(goBack)];
+    UIButton *lButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [lButton setImage:[UIImage imageNamed:@"header_icon_back"] forState:UIControlStateNormal];
+    lButton.frame = CGRectMake(0, 0, 30, 50);
+    [lButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * leftBarItem = [[UIBarButtonItem alloc]initWithCustomView:lButton];;
     self.navigationItem.leftBarButtonItem = leftBarItem;
     
+    UIButton *rButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rButton.frame = CGRectMake(0, 0, 90, 30);
+    [rButton setTitle:@"提交/重置" forState:UIControlStateNormal];
+    [rButton addTarget:self action:@selector(resetData) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithCustomView:rButton];
+    self.navigationItem.rightBarButtonItem = rightBarItem;
 }
+
+-(void)resetData{
+    _datas = nil;
+    _index = 0;
+    NSString *path = [self filePath];
+    [NSKeyedArchiver archiveRootObject:_datas toFile:path];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger :_index forKey:self.record];
+    [self changeView:1];
+}
+
 -(void)goBack{
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您尚未完成全部答题，是否保存错题并退出？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *defauts = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您尚未完成全部答题，是否保存错题并退出？" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *defauts = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([self.delegate respondsToSelector:@selector(saveWrongTpic:wrong:)]) {
             [self.delegate saveWrongTpic:self wrong:self.wrong];
         }
+        NSString *path = [self filePath];
+        [NSKeyedArchiver archiveRootObject:self.datas toFile:path];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setInteger :self.index forKey:self.record];
         [self.navigationController popViewControllerAnimated:YES];
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancel];
-    [alert addAction:defauts];
-    [self presentViewController:alert animated:true completion:nil];
+//    }];
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//    [alert addAction:cancel];
+//    [alert addAction:defauts];
+//    [self presentViewController:alert animated:true completion:nil];
 }
 
 -(void)chooseBtn:(UIButton *)btn{
@@ -216,23 +237,34 @@
         self.menView.alpha = 0;
     }
 }
+
 -(NSMutableArray *)datas{
     if (_datas == nil) {
-        _datas = [NSMutableArray array];
-        for (int i = 0 ; i < self.tpArray.count; i++) {
-            data *da = [[data alloc]init];
-            [da dataFromArray:self.tpArray[i]];
-            [_datas addObject:da];
+        NSString *path = [self filePath];
+        _datas = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        if (_datas==nil) {
+            _datas = [NSMutableArray array];
+            for(int i = 0 ; i < self.tpArray.count; i++) {
+                data *da = [[data alloc]init];
+                [da dataFromArray:self.tpArray[i]];
+                [_datas addObject:da];
+            }
         }
-        self.index = 0;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults objectForKey:self.record]!=nil) {
+            self.index = [defaults integerForKey:self.record];
+        }
     }
     return _datas;
 }
-
 -(NSMutableArray *)wrong{
     if (_wrong ==nil) {
         _wrong = [NSMutableArray array];
     }
     return _wrong;
+}
+-(NSString *)filePath{
+    NSString *pa = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+    return [pa stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.record]];
 }
 @end

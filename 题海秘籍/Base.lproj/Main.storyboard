@@ -651,7 +651,7 @@
         <scene sceneID="Dpy-eJ-AZ8">
             <objects>
                 <navigationController id="BbH-Mt-K7l" customClass="ATNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="学霸动态" selectedImage="标题1" id="7tG-Fy-Opd"/>
+                    <tabBarItem key="tabBarItem" title="学霸动态" id="7tG-Fy-Opd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="TBX-mx-RtW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1161,35 +1161,6 @@
             </objects>
             <point key="canvasLocation" x="-702" y="2007"/>
         </scene>
-        <!--Comment Controller-->
-        <scene sceneID="m1G-ui-jOx">
-            <objects>
-                <tableViewController id="97e-CD-MBy" customClass="commentController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kNA-Aj-IR3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="9ex-iF-g6q">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9ex-iF-g6q" id="W1P-Js-P1l">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="97e-CD-MBy" id="KQV-bK-VFL"/>
-                            <outlet property="delegate" destination="97e-CD-MBy" id="R4s-Gj-lWD"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="VVx-DR-ak8"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xuy-j4-q5v" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2064" y="892"/>
-        </scene>
         <!--模拟考场-->
         <scene sceneID="9AO-mE-LwW">
             <objects>
@@ -1290,7 +1261,6 @@
         <image name="shake_1" width="52" height="52"/>
         <image name="v_0" width="39" height="39"/>
         <image name="v_1" width="39" height="39"/>
-        <image name="标题1" width="250" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wBR-jR-n7Y"/>

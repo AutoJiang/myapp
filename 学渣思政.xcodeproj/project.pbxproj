@@ -50,6 +50,7 @@
 		C95444DF1BA18D9B003F7322 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95444DE1BA18D9B003F7322 /* Images.xcassets */; };
 		C95444E21BA18D9B003F7322 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95444E01BA18D9B003F7322 /* LaunchScreen.xib */; };
 		C95444EE1BA18D9B003F7322 /* ____Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C95444ED1BA18D9B003F7322 /* ____Tests.m */; };
+		C96E82A01CE5756C00E30D6E /* randomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96E829F1CE5756C00E30D6E /* randomViewController.m */; };
 		C986FBE11CE1B3D00029EC75 /* ATshowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C986FBE01CE1B3D00029EC75 /* ATshowView.m */; };
 		C986FBE41CE1B7960029EC75 /* data.m in Sources */ = {isa = PBXBuildFile; fileRef = C986FBE31CE1B7960029EC75 /* data.m */; };
 		C993D6031CBFE70900B2D0B9 /* w.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C993D6021CBFE70900B2D0B9 /* w.mp3 */; };
@@ -183,6 +184,8 @@
 		C95444E71BA18D9B003F7322 /* 学渣思政.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "学渣思政.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C95444EC1BA18D9B003F7322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C95444ED1BA18D9B003F7322 /* ____Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "____Tests.m"; sourceTree = "<group>"; };
+		C96E829E1CE5756C00E30D6E /* randomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randomViewController.h; sourceTree = "<group>"; };
+		C96E829F1CE5756C00E30D6E /* randomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = randomViewController.m; sourceTree = "<group>"; };
 		C986FBDF1CE1B3D00029EC75 /* ATshowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATshowView.h; sourceTree = "<group>"; };
 		C986FBE01CE1B3D00029EC75 /* ATshowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATshowView.m; sourceTree = "<group>"; };
 		C986FBE21CE1B7960029EC75 /* data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
@@ -599,6 +602,8 @@
 				C9E5A0B21CDD93EF00F7BCE8 /* animationViewController.h */,
 				C9E5A0B31CDD93EF00F7BCE8 /* animationViewController.m */,
 				C9E5A0B41CDD93EF00F7BCE8 /* doubleWorkViewController.h */,
+				C96E829E1CE5756C00E30D6E /* randomViewController.h */,
+				C96E829F1CE5756C00E30D6E /* randomViewController.m */,
 				C9E5A0B51CDD93EF00F7BCE8 /* doubleWorkViewController.m */,
 				C9E5A0B61CDD93EF00F7BCE8 /* examinationViewController.h */,
 				C9E5A0B71CDD93EF00F7BCE8 /* examinationViewController.m */,
@@ -741,6 +746,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C948DE601CD5E90E00667EEC /* MJIvar.m in Sources */,
+				C96E82A01CE5756C00E30D6E /* randomViewController.m in Sources */,
 				C941A1821CD34CC500D9C703 /* AFURLConnectionOperation.m in Sources */,
 				C9CECFC51CDBA12F00F5C095 /* UIImageView+WebCache.m in Sources */,
 				C9CECFBD1CDBA12F00F5C095 /* SDWebImageDownloaderOperation.m in Sources */,
