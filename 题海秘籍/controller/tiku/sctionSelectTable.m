@@ -7,20 +7,20 @@
 //
 
 #import "sctionSelectTable.h"
-#import "workViewController.h"
-#import "doubleWorkViewController.h"
 #import "examinationViewController.h"
 #import "readViewController.h"
 #import "searchViewController.h"
 #import "ATTableViewCell.h"
 #import "orderViewController.h"
 #import "randomViewController.h"
+#import "errorViewController.h"
 #define ImageCount 5  //图片轮播个数
+#define  M  @3
 
 static NSString *kheader = @"menuSectionHeader";
 static NSString *ksubSection = @"menuSubSection";
 
-@interface sctionSelectTable ()<workViewControllerDelegate,doubleWorkViewControllerDelegate,orderViewControllerDelegate,UIScrollViewDelegate>
+@interface sctionSelectTable ()<orderViewControllerDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong) NSMutableArray *Singletopic;
 @property (nonatomic,strong) NSMutableArray *Doubletopic;
 @property (nonatomic,strong) NSMutableSet *SingleWrong;
@@ -32,9 +32,14 @@ static NSString *ksubSection = @"menuSubSection";
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSString *sd;
 
+@property (nonatomic, assign) NSInteger type;
+
 @property (nonatomic,strong)  NSArray *sections;
 @property (strong, nonatomic) NSMutableArray *sectionsArray;
 @property (strong, nonatomic) NSMutableArray *showingArray;
+
+@property (strong, nonatomic) NSMutableArray *Sindex;
+@property (strong, nonatomic) NSMutableArray *Dindex;
 
 @end
 
@@ -63,15 +68,35 @@ static NSString *ksubSection = @"menuSubSection";
     
     [self openDb];
     
+    [self readFromFile];
+    
+    self.sectionsArray = [NSMutableArray new];
+    self.showingArray = [NSMutableArray new];
+    [self setMenuSections:self.sections];
+}
+-(void)readFromFile{
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
     self.SingleWrong =[NSKeyedUnarchiver unarchiveObjectWithFile:path];
     NSString *pathd = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/D%@.ctj",self.bookName]];
     self.DoubleWrong =[NSKeyedUnarchiver unarchiveObjectWithFile:pathd];
     
-    self.sectionsArray = [NSMutableArray new];
-    self.showingArray = [NSMutableArray new];
-    [self setMenuSections:self.sections];
-    
+    path = [path stringByAppendingString:@"x"];
+    self.Sindex = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    pathd = [pathd stringByAppendingString:@"x"];
+    self.Dindex = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+}
+-(void)writeToFileS{
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
+    NSLog(@"%@",path);
+    [NSKeyedArchiver archiveRootObject:self.SingleWrong toFile:path];
+    path = [path stringByAppendingString:@"x"];
+    [NSKeyedArchiver archiveRootObject:self.Sindex toFile:path];
+}
+-(void)writetoFileD{
+    NSString *pathd = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/D%@.ctj",self.bookName]];
+    [NSKeyedArchiver archiveRootObject:self.DoubleWrong toFile:pathd];
+    pathd = [pathd stringByAppendingString:@"x"];
+    [NSKeyedArchiver archiveRootObject:self.Dindex toFile:pathd];
 }
 //打开数据库
 -(void)openDb{
@@ -368,47 +393,43 @@ static NSString *ksubSection = @"menuSubSection";
     if (indexPath.section == 1||indexPath.section == 2||indexPath.section == 3) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请选择答题的类型" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"单选" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            if (indexPath.section == 1 && !self.SingleWrong.count) {
-                UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"错题集暂无错题！" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *action =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
-                [alert2 addAction:action];
-                [self presentViewController:alert2 animated:true completion:nil];
-            }
-            if (indexPath.section == 2) {
-                [self performSegueWithIdentifier:@"selectToOrder" sender:@0];
-            }else{
-//                [self performSegueWithIdentifier:@"selectTowork" sender:nil];
-                randomViewController *rv = [[randomViewController alloc]init];
-                rv.voice = self.voice;
-                rv.shake = self.shake;
-                NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-//                NSInteger type = [sender integerValue];
-                rv.type = 0 ;
-                if (rv.type == 0) {
-                    rv.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+            self.type = 0;
+            if (indexPath.section == 1) {
+                if (!self.SingleWrong.count) {
+                    UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"单选错题集暂无错题！" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *action =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+                    [alert2 addAction:action];
+                    [self presentViewController:alert2 animated:true completion:nil];
                 }else{
-                    rv.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
+                    [self performSegueWithIdentifier:@"selectToError" sender:@1];
                 }
-                rv.record = [NSString stringWithFormat:@"%@_%ld_%ld_R",self.bookName,indexpath.row,rv.type];
-                NSLog(@"%@",rv.record);
-                rv.delegate = self;
-                [self.navigationController pushViewController:rv animated:true];
+
+            }
+            else if (indexPath.section == 2) {
+                [self performSegueWithIdentifier:@"selectToOrder" sender:@2];
+            }else if(indexPath.section ==3){
+                [self performSegueWithIdentifier:@"selectToRandom" sender:@3];
             }
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-
         }];
         UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"多选" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            if (indexPath.section == 1 && !self.DoubleWrong.count) {
-                UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"错题集暂无错题！" message:nil preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *action =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-                [alert2 addAction:action];
-                [self presentViewController:alert2 animated:true completion:nil];
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+            self.type = 1;
+            if (indexPath.section == 1) {
+                if (!self.DoubleWrong.count) {
+                    UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"多选错题集暂无错题！" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *action =[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                    [alert2 addAction:action];
+                    [self presentViewController:alert2 animated:true completion:nil];
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                }else{
+                    [self performSegueWithIdentifier:@"selectToError" sender:@1];
+                }
+                
             }
-            if (indexPath.section == 2) {
-                [self performSegueWithIdentifier:@"selectToOrder" sender:@1];
-            }else{
-                [self performSegueWithIdentifier:@"selectToDwork" sender:nil];
+            else if (indexPath.section == 2) {
+                [self performSegueWithIdentifier:@"selectToOrder" sender:@2];
+            }else if(indexPath.section == 3){
+                [self performSegueWithIdentifier:@"selectToRandom" sender:@3];
             }
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
         }];
@@ -424,7 +445,7 @@ static NSString *ksubSection = @"menuSubSection";
     else if(indexPath.section == 4){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您将在30分钟内完成60道单选和20道多选，是否要进入？" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *defaults = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self performSegueWithIdentifier:@"selectToExam" sender:nil];
+            [self performSegueWithIdentifier:@"selectToExam" sender:@4];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -450,105 +471,122 @@ static NSString *ksubSection = @"menuSubSection";
     }
     [self didSelectAction:indexPath];
 }
-//#pragma workViewController delegate
-//-(void)saveWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray{
-//    if (self.SingleWrong ==nil) {
-//        self.SingleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
-//    }else{
-//        [self.SingleWrong addObjectsFromArray:WrongArray];
-//    }
-//    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
-//    NSLog(@"%@",path);
-//    [NSKeyedArchiver archiveRootObject:self.SingleWrong toFile:path];
-//}
-//-(void)deleteWrongTpic:(workViewController *)workView wrong:(NSMutableArray *)WrongArray{
-//    if (WrongArray !=nil) {
-//        [self.SingleWrong removeObject:WrongArray];
-//    }
-//}
-#pragma doubleViewController delegate
 
--(void)saveDwrongTpic:(doubleWorkViewController *)dworkView wrong:(NSMutableArray *)WrongArray{
-    if (self.DoubleWrong ==nil) {
-        self.DoubleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
-    }else{
-        [self.DoubleWrong addObjectsFromArray:WrongArray];
-    }
-    NSString *pathd = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/D%@.ctj",self.bookName]];
-    [NSKeyedArchiver archiveRootObject:self.DoubleWrong toFile:pathd];
-}
--(void)deleteDWrongTpic:(doubleWorkViewController *)dworkView wrong:(NSMutableArray *)WrongArray{
-    if (WrongArray !=nil) {
-        [self.DoubleWrong removeObject:WrongArray];
-    }
-}
+
+
+//-(void)deleteDWrongTpic:(doubleWorkViewController *)dworkView wrong:(NSMutableArray *)WrongArray{
+//    if (WrongArray !=nil) {
+//        [self.DoubleWrong removeObject:WrongArray];
+//    }
+//}
 #pragma orderViewControllerDelegate
 -(void)saveWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray{
     if (workView.type == 0) {
         if (self.SingleWrong ==nil) {
-            self.SingleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
-//            self.SingleWrong = [[NSMutableSet alloc]initWithObjects:WrongArray];
+            self.SingleWrong =[[NSMutableSet alloc]initWithObjects:WrongArray,nil];
         }else{
-            [self.SingleWrong addObjectsFromArray:WrongArray];
-//            [self.SingleWrong addObject:WrongArray];
+            [self.SingleWrong addObject:WrongArray];
         }
-        NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/%@.ctj",self.bookName]];
-        NSLog(@"%@",path);
-        [NSKeyedArchiver archiveRootObject:self.SingleWrong toFile:path];
+        if (self.Sindex == nil) {
+            self.Sindex =[NSMutableArray array];
+        }
+        if (self.SingleWrong.count>self.Sindex.count) {
+            [self.Sindex addObject:M];
+        }
+        [self writeToFileS];
     }else if (workView.type == 1){
         if (self.DoubleWrong ==nil) {
-            self.DoubleWrong =[[NSMutableSet alloc]initWithArray:WrongArray];
+            self.DoubleWrong =[[NSMutableSet alloc]initWithObjects:WrongArray,nil];
         }else{
-            [self.DoubleWrong addObjectsFromArray:WrongArray];
+            [self.DoubleWrong addObject: WrongArray];
         }
-        NSString *pathd = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Documents/D%@.ctj",self.bookName]];
-        [NSKeyedArchiver archiveRootObject:self.DoubleWrong toFile:pathd];
+        if (self.Dindex == nil) {
+            self.Dindex =[NSMutableArray array];
+        }
+        [self writetoFileD];
     }
 
 }
--(void)deleteWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray{
-    if (WrongArray !=nil) {
-        [self.SingleWrong removeObject:WrongArray];
+-(void)deleteRightTpic:(orderViewController *)workView right:(NSMutableArray *)RightArray pos:(NSInteger)pos{
+    if (workView.type == 0) {
+        NSNumber *num =  self.Sindex[pos];
+        NSInteger ingter =[num integerValue]-1;
+        if (ingter == 0) {
+            [self.SingleWrong removeObject:RightArray];
+            [self.Sindex removeObjectAtIndex:pos];
+        }else{
+            self.Sindex[pos] = [NSNumber numberWithInteger:ingter];
+        }
+        [self writeToFileS];
+    }else if (workView.type == 1){
+        NSNumber *num = self.Dindex[pos];
+        NSInteger ingter = [num integerValue]-1;
+        if (ingter == 0) {
+            [self.DoubleWrong removeObject:RightArray];
+            [self.Dindex removeObjectAtIndex:pos];
+        }else{
+            self.Dindex[pos] = [NSNumber numberWithInteger:ingter];
+        }
+        [self writetoFileD];
     }
 }
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[workViewController class]]) {
-        workViewController *wc = segue.destinationViewController;
-        wc.record = NO;
-        wc.voice = self.voice;
-        wc.shake = self.shake;
-        wc.name = self.name;
-        NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-        if (indexpath.section == 1) {               //进入错题集
-            wc.record = YES;
+    NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
+    NSInteger section = [sender integerValue];
+    if(section == 0){
+        readViewController *rd =segue.destinationViewController;
+        rd.tpic = [NSMutableArray arrayWithArray:self.currentTpic[indexpath.row-1]];
+        rd.record = [self.bookName stringByAppendingString:[NSString stringWithFormat:@"_%@_%ld",self.sd,(long)indexpath.row]];
+        NSLog(@"%@",rd.record);
+    }
+    else if(section == 1) {//进入错题集
+        errorViewController *ev = segue.destinationViewController;
+        ev.voice = self.voice;
+        ev.shake = self.shake;
+        ev.name = self.name;
+        ev.record = [NSString stringWithFormat:@"%@_%ld,%ld_%ld_",self.bookName,indexpath.section,indexpath.row,ev.type];
+        ev.tpArray = [NSMutableArray array];
+        if (_type == 0) {
             for (NSMutableArray *oj in self.SingleWrong) {
-                [wc.tpArray addObject:oj];
+                [ev.tpArray addObject:oj];
             }
-        }else if(indexpath.section ==2||indexpath.section ==3){
-            wc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
-        }
-        wc.delegate = self;
-    }
-    else if ([segue.destinationViewController isKindOfClass:[doubleWorkViewController class]]) {
-        doubleWorkViewController *dw = segue.destinationViewController;
-        dw.record = NO;
-        dw.voice = self.voice;
-        dw.shake = self.shake;
-        dw.name = self.name;
-        NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-        if (indexpath.section == 1) {
-            dw.record = YES;
+        }else if (_type == 1){
             for (NSMutableArray *oj in self.DoubleWrong) {
-                [dw.tpArray addObject:oj];
+                [ev.tpArray addObject:oj];
             }
-        }else if(indexpath.section == 2||indexpath.section == 3){
-            dw.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
         }
-        dw.delegate = self;
+        ev.delegate = self;
     }
-    else if ([segue.destinationViewController isKindOfClass:[examinationViewController class]]){
+    else if (section == 2){
+        orderViewController *oc = segue.destinationViewController;
+        oc.voice = self.voice;
+        oc.shake = self.shake;
+        oc.type = _type ;
+        if (oc.type == 0) {
+            oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+        }else{
+            oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
+        }
+        oc.record = [NSString stringWithFormat:@"%@_%ld,%ld_%ld_",self.bookName,indexpath.section,indexpath.row,oc.type];
+        NSLog(@"%@",oc.record);
+        oc.delegate = self;
+    }
+    else if (section == 3){
+        randomViewController *rv = segue.destinationViewController;
+        rv.voice = self.voice;
+        rv.shake = self.shake;
+        rv.type = _type ;
+        if (rv.type == 0) {
+            rv.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
+        }else{
+            rv.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
+        }
+        rv.record = [NSString stringWithFormat:@"%@_%ld,%ld_%ld",self.bookName,indexpath.section,indexpath.row,rv.type];
+        NSLog(@"%@",rv.record);
+        rv.delegate = self;
+    }else if (section == 4){
         examinationViewController *ev = segue.destinationViewController;
         ev.voice = self.voice;
         for (NSMutableArray *ar in self.Singletopic) {
@@ -558,13 +596,6 @@ static NSString *ksubSection = @"menuSubSection";
             [ev.doubleTpic addObjectsFromArray:ar];
         }
         ev.name = self.name;
-    }
-    else if([segue.destinationViewController isKindOfClass:[readViewController class]]){
-        readViewController *rd =segue.destinationViewController;
-        NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-        rd.tpic = [NSMutableArray arrayWithArray:self.currentTpic[indexpath.row-1]];
-        rd.record = [self.bookName stringByAppendingString:[NSString stringWithFormat:@"_%@_%ld",self.sd,(long)indexpath.row]];
-        NSLog(@"%@",rd.record);
     }
     else if([segue.destinationViewController isKindOfClass:[searchViewController class]]){
         searchViewController *sv =segue.destinationViewController;
@@ -580,21 +611,6 @@ static NSString *ksubSection = @"menuSubSection";
             NSMutableArray *temp = self.Doubletopic[i];
             [sv.allArray addObjectsFromArray:temp];
         }
-    }else if ([segue.destinationViewController isKindOfClass:[orderViewController class]]){
-        orderViewController *oc = segue.destinationViewController;
-        oc.voice = self.voice;
-        oc.shake = self.shake;
-        NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-        NSInteger type = [sender integerValue];
-        oc.type = type ;
-        if (oc.type == 0) {
-            oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Singletopic[indexpath.row-1]];
-        }else{
-            oc.tpArray = [[NSMutableArray alloc]initWithArray:self.Doubletopic[indexpath.row-1]];
-        }
-        oc.record = [NSString stringWithFormat:@"%@_%ld_%ld",self.bookName,indexpath.row,type];
-        NSLog(@"%@",oc.record);
-        oc.delegate = self;
     }
 }
 @end

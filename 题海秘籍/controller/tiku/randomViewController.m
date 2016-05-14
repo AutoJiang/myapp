@@ -37,13 +37,17 @@
         if (_datas == nil) {
             _datas = [NSMutableArray array];
             self.array = [self.tpArray mutableCopy];
-            for(int i = 0 ; i < self.tpArray.count;i++){
+            NSInteger count = self.tpArray.count;
+            self.tpArray = [NSMutableArray array];
+            for(int i = 0 ; i < count;i++){
                 NSInteger n = arc4random() % self.array.count;
                 data *da = [[data alloc]init];
                 [da dataFromArray:self.array[n]];
+                [self.tpArray addObject:self.array[n]];
                 [_datas addObject:da];
                 [self.array removeObjectAtIndex:n];
             }
+            NSLog(@"%ld",self.tpArray.count);
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         if ([defaults objectForKey:self.record]!=nil) {

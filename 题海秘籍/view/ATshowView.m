@@ -125,7 +125,7 @@
     if ([answer isEqualToString:self.data.answer]){
         self.data.isRight = YES;
         NSLog(@"right");
-        
+        self.deleteRight();
     }else{
         self.data.isRight = NO;
         self.addWrong();

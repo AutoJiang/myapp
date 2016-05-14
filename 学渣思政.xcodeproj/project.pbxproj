@@ -51,6 +51,7 @@
 		C95444E21BA18D9B003F7322 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95444E01BA18D9B003F7322 /* LaunchScreen.xib */; };
 		C95444EE1BA18D9B003F7322 /* ____Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C95444ED1BA18D9B003F7322 /* ____Tests.m */; };
 		C96E82A01CE5756C00E30D6E /* randomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96E829F1CE5756C00E30D6E /* randomViewController.m */; };
+		C96E82A31CE608DA00E30D6E /* errorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96E82A21CE608DA00E30D6E /* errorViewController.m */; };
 		C986FBE11CE1B3D00029EC75 /* ATshowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C986FBE01CE1B3D00029EC75 /* ATshowView.m */; };
 		C986FBE41CE1B7960029EC75 /* data.m in Sources */ = {isa = PBXBuildFile; fileRef = C986FBE31CE1B7960029EC75 /* data.m */; };
 		C993D6031CBFE70900B2D0B9 /* w.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C993D6021CBFE70900B2D0B9 /* w.mp3 */; };
@@ -84,12 +85,10 @@
 		C9E5A0C41CDD93EF00F7BCE8 /* myTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0AD1CDD93EF00F7BCE8 /* myTableViewController.m */; };
 		C9E5A0C51CDD93EF00F7BCE8 /* YSHYClipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0AF1CDD93EF00F7BCE8 /* YSHYClipViewController.m */; };
 		C9E5A0C61CDD93EF00F7BCE8 /* animationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0B31CDD93EF00F7BCE8 /* animationViewController.m */; };
-		C9E5A0C71CDD93EF00F7BCE8 /* doubleWorkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0B51CDD93EF00F7BCE8 /* doubleWorkViewController.m */; };
 		C9E5A0C81CDD93EF00F7BCE8 /* examinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0B71CDD93EF00F7BCE8 /* examinationViewController.m */; };
 		C9E5A0C91CDD93EF00F7BCE8 /* readViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0B91CDD93EF00F7BCE8 /* readViewController.m */; };
 		C9E5A0CA1CDD93EF00F7BCE8 /* sctionSelectTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0BB1CDD93EF00F7BCE8 /* sctionSelectTable.m */; };
 		C9E5A0CB1CDD93EF00F7BCE8 /* searchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0BD1CDD93EF00F7BCE8 /* searchViewController.m */; };
-		C9E5A0CC1CDD93EF00F7BCE8 /* workViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0BF1CDD93EF00F7BCE8 /* workViewController.m */; };
 		C9E5A0D81CDD9AD300F7BCE8 /* statusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0D71CDD9AD300F7BCE8 /* statusViewController.m */; };
 		C9E5A0DE1CDD9D9D00F7BCE8 /* showViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0DD1CDD9D9D00F7BCE8 /* showViewController.m */; };
 		C9E5A0E11CDDAA1200F7BCE8 /* commentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0E01CDDAA1200F7BCE8 /* commentViewController.m */; };
@@ -186,6 +185,8 @@
 		C95444ED1BA18D9B003F7322 /* ____Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "____Tests.m"; sourceTree = "<group>"; };
 		C96E829E1CE5756C00E30D6E /* randomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randomViewController.h; sourceTree = "<group>"; };
 		C96E829F1CE5756C00E30D6E /* randomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = randomViewController.m; sourceTree = "<group>"; };
+		C96E82A11CE608DA00E30D6E /* errorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errorViewController.h; sourceTree = "<group>"; };
+		C96E82A21CE608DA00E30D6E /* errorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = errorViewController.m; sourceTree = "<group>"; };
 		C986FBDF1CE1B3D00029EC75 /* ATshowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATshowView.h; sourceTree = "<group>"; };
 		C986FBE01CE1B3D00029EC75 /* ATshowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATshowView.m; sourceTree = "<group>"; };
 		C986FBE21CE1B7960029EC75 /* data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
@@ -254,8 +255,6 @@
 		C9E5A0AF1CDD93EF00F7BCE8 /* YSHYClipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YSHYClipViewController.m; sourceTree = "<group>"; };
 		C9E5A0B21CDD93EF00F7BCE8 /* animationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animationViewController.h; sourceTree = "<group>"; };
 		C9E5A0B31CDD93EF00F7BCE8 /* animationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = animationViewController.m; sourceTree = "<group>"; };
-		C9E5A0B41CDD93EF00F7BCE8 /* doubleWorkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = doubleWorkViewController.h; sourceTree = "<group>"; };
-		C9E5A0B51CDD93EF00F7BCE8 /* doubleWorkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = doubleWorkViewController.m; sourceTree = "<group>"; };
 		C9E5A0B61CDD93EF00F7BCE8 /* examinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = examinationViewController.h; sourceTree = "<group>"; };
 		C9E5A0B71CDD93EF00F7BCE8 /* examinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = examinationViewController.m; sourceTree = "<group>"; };
 		C9E5A0B81CDD93EF00F7BCE8 /* readViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = readViewController.h; sourceTree = "<group>"; };
@@ -264,8 +263,6 @@
 		C9E5A0BB1CDD93EF00F7BCE8 /* sctionSelectTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sctionSelectTable.m; sourceTree = "<group>"; };
 		C9E5A0BC1CDD93EF00F7BCE8 /* searchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchViewController.h; sourceTree = "<group>"; };
 		C9E5A0BD1CDD93EF00F7BCE8 /* searchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchViewController.m; sourceTree = "<group>"; };
-		C9E5A0BE1CDD93EF00F7BCE8 /* workViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = workViewController.h; sourceTree = "<group>"; };
-		C9E5A0BF1CDD93EF00F7BCE8 /* workViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workViewController.m; sourceTree = "<group>"; };
 		C9E5A0D61CDD9AD300F7BCE8 /* statusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = statusViewController.h; sourceTree = "<group>"; };
 		C9E5A0D71CDD9AD300F7BCE8 /* statusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = statusViewController.m; sourceTree = "<group>"; };
 		C9E5A0DC1CDD9D9D00F7BCE8 /* showViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = showViewController.h; sourceTree = "<group>"; };
@@ -601,10 +598,8 @@
 			children = (
 				C9E5A0B21CDD93EF00F7BCE8 /* animationViewController.h */,
 				C9E5A0B31CDD93EF00F7BCE8 /* animationViewController.m */,
-				C9E5A0B41CDD93EF00F7BCE8 /* doubleWorkViewController.h */,
 				C96E829E1CE5756C00E30D6E /* randomViewController.h */,
 				C96E829F1CE5756C00E30D6E /* randomViewController.m */,
-				C9E5A0B51CDD93EF00F7BCE8 /* doubleWorkViewController.m */,
 				C9E5A0B61CDD93EF00F7BCE8 /* examinationViewController.h */,
 				C9E5A0B71CDD93EF00F7BCE8 /* examinationViewController.m */,
 				C9E5A0B81CDD93EF00F7BCE8 /* readViewController.h */,
@@ -615,8 +610,8 @@
 				C9C3A82C1CDF914A00B9987C /* orderViewController.m */,
 				C9E5A0BC1CDD93EF00F7BCE8 /* searchViewController.h */,
 				C9E5A0BD1CDD93EF00F7BCE8 /* searchViewController.m */,
-				C9E5A0BE1CDD93EF00F7BCE8 /* workViewController.h */,
-				C9E5A0BF1CDD93EF00F7BCE8 /* workViewController.m */,
+				C96E82A11CE608DA00E30D6E /* errorViewController.h */,
+				C96E82A21CE608DA00E30D6E /* errorViewController.m */,
 			);
 			path = tiku;
 			sourceTree = "<group>";
@@ -779,6 +774,7 @@
 				C9E5A0DE1CDD9D9D00F7BCE8 /* showViewController.m in Sources */,
 				C941A1811CD34CC500D9C703 /* AFSecurityPolicy.m in Sources */,
 				C9C3A8291CDF367F00B9987C /* commetTableViewCell.m in Sources */,
+				C96E82A31CE608DA00E30D6E /* errorViewController.m in Sources */,
 				C9E5A0E11CDDAA1200F7BCE8 /* commentViewController.m in Sources */,
 				C941A1851CD34CC500D9C703 /* AFURLSessionManager.m in Sources */,
 				C9E5A0C51CDD93EF00F7BCE8 /* YSHYClipViewController.m in Sources */,
@@ -788,7 +784,6 @@
 				C9CECFBE1CDBA12F00F5C095 /* SDWebImageManager.m in Sources */,
 				C941A17F1CD34CC500D9C703 /* AFHTTPSessionManager.m in Sources */,
 				C948DE671CD5E90E00667EEC /* NSObject+MJMember.m in Sources */,
-				C9E5A0C71CDD93EF00F7BCE8 /* doubleWorkViewController.m in Sources */,
 				C9D777891BF1096300E87542 /* subject.m in Sources */,
 				C941A1801CD34CC500D9C703 /* AFNetworkReachabilityManager.m in Sources */,
 				C9C3A8251CDEE7B900B9987C /* ATTabBarViewController.m in Sources */,
@@ -797,7 +792,6 @@
 				C941A17E1CD34CC500D9C703 /* AFHTTPRequestOperationManager.m in Sources */,
 				C9324BBE1CDE3F61004157E8 /* comment.m in Sources */,
 				C90390F31CD5015D00164068 /* myTableViewCell.m in Sources */,
-				C9E5A0CC1CDD93EF00F7BCE8 /* workViewController.m in Sources */,
 				C941A1831CD34CC500D9C703 /* AFURLRequestSerialization.m in Sources */,
 				C948DE4A1CD5E69200667EEC /* user.m in Sources */,
 				C9D777861BF104D600E87542 /* userDefault.m in Sources */,

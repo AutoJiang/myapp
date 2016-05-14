@@ -23,6 +23,9 @@ typedef NS_ENUM(NSInteger,showType){
 
 @property (nonatomic, copy) void(^addWrong)(void);
 
+@property (nonatomic, copy) void(^deleteRight)(void);
+
+
 -(void)reloadData:(data*)data;
 
 -(ATshowView*)initWithFrame:(CGRect)frame withFont:(UIFont*)font data:(data*)data;

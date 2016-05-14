@@ -12,14 +12,10 @@
 @protocol orderViewControllerDelegate <NSObject>
 
 -(void)saveWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray;
--(void)deleteWrongTpic:(orderViewController *)workView wrong:(NSMutableArray *)WrongArray;
+-(void)deleteRightTpic:(orderViewController *)workView right:(NSMutableArray *)RightArray pos:(NSInteger)pos;
 @end
 
-@interface orderViewController : ATViewController{
-//    @protected NSMutableArray *datas;
-//    @property (copy, nonatomic) NSMutableArray *datas;
-}
-
+@interface orderViewController : ATViewController
 
 @property (nonatomic ,strong) NSMutableArray *tpArray;
 @property (nonatomic ,copy) NSString *record;
@@ -28,13 +24,13 @@
 @property(nonatomic ,copy)NSString *name;
 @property (strong, nonatomic) NSMutableArray *datas;
 
-
-//@property(nonatomic ,copy)NSString *key;
 @property (assign, nonatomic) NSInteger index;
 
 @property(nonatomic,weak)id<orderViewControllerDelegate>delegate;
 
 -(NSString *)filePath;
+
+-(void)delRight;
 
 @end
 

@@ -27,8 +27,6 @@
 @property (weak, nonatomic) ATshowView *nextView;
 
 
-@property (strong,nonatomic)NSMutableArray *wrong;
-
 @property (nonatomic ,strong)UISwipeGestureRecognizer *leftSwipe;
 @property (nonatomic ,strong)UISwipeGestureRecognizer *rightSwipe;
 
@@ -99,11 +97,18 @@
     [self.view insertSubview:mainView belowSubview:belowSubview];
     [mainView reloadData:temp];
     mainView.addWrong = ^(){
-        [self.wrong addObject:self.tpArray[self.index]];
+        if([self.delegate respondsToSelector:@selector(saveWrongTpic:wrong:)]){
+            [self.delegate saveWrongTpic:self wrong:self.tpArray[self.index]];
+        }
+    };
+    mainView.deleteRight = ^(){
+        [self delRight];
     };
     return mainView;
 }
-
+-(void)delRight{
+    return;
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -199,21 +204,11 @@
 }
 
 -(void)goBack{
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您尚未完成全部答题，是否保存错题并退出？" preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *defauts = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if ([self.delegate respondsToSelector:@selector(saveWrongTpic:wrong:)]) {
-            [self.delegate saveWrongTpic:self wrong:self.wrong];
-        }
-        NSString *path = [self filePath];
-        [NSKeyedArchiver archiveRootObject:self.datas toFile:path];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setInteger :self.index forKey:self.record];
-        [self.navigationController popViewControllerAnimated:YES];
-//    }];
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-//    [alert addAction:cancel];
-//    [alert addAction:defauts];
-//    [self presentViewController:alert animated:true completion:nil];
+    NSString *path = [self filePath];
+    [NSKeyedArchiver archiveRootObject:self.datas toFile:path];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setInteger :self.index forKey:self.record];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)chooseBtn:(UIButton *)btn{
@@ -257,12 +252,7 @@
     }
     return _datas;
 }
--(NSMutableArray *)wrong{
-    if (_wrong ==nil) {
-        _wrong = [NSMutableArray array];
-    }
-    return _wrong;
-}
+
 -(NSString *)filePath{
     NSString *pa = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     return [pa stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",self.record]];
