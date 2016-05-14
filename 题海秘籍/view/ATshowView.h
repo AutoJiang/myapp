@@ -21,9 +21,9 @@ typedef NS_ENUM(NSInteger,showType){
 
 @property (nonatomic, assign)showType showType;
 
-@property (nonatomic, copy) void(^addWrong)(void);
+@property (nonatomic, copy) void(^addWrong)();
 
-@property (nonatomic, copy) void(^deleteRight)(void);
+@property (nonatomic, copy) void(^deleteRight)();
 
 
 -(void)reloadData:(data*)data;

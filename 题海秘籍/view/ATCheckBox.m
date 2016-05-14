@@ -10,7 +10,7 @@
 
 #define Q_CHECK_ICON_WH                    (30.0)
 #define Q_ICON_TITLE_MARGIN                (5.0)
-#define MARGIN                              10
+#define MARGIN                             self.width*0.08
 @implementation ATCheckBox
 
 @synthesize delegate = _delegate;

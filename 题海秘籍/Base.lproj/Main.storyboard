@@ -12,7 +12,7 @@
         <scene sceneID="bse-Ep-flM">
             <objects>
                 <navigationController id="5Mh-lJ-VKk" customClass="ATNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="题库" id="HCe-bg-5qk"/>
+                    <tabBarItem key="tabBarItem" title="题库" image="tool_1" id="HCe-bg-5qk"/>
                     <navigationItem key="navigationItem" id="6Qe-hT-mXm"/>
                     <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" barStyle="blackTranslucent" id="Tvt-Ym-rEc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -505,7 +505,7 @@
         <scene sceneID="Dpy-eJ-AZ8">
             <objects>
                 <navigationController id="BbH-Mt-K7l" customClass="ATNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="学霸动态" id="7tG-Fy-Opd"/>
+                    <tabBarItem key="tabBarItem" title="学霸动态" image="tool_2" selectedImage="tool_2_selected" id="7tG-Fy-Opd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="TBX-mx-RtW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -522,7 +522,7 @@
         <scene sceneID="WzY-A8-xfb">
             <objects>
                 <navigationController id="LZ4-Fk-0sN" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" image="1" selectedImage="1_selected" id="usf-F1-sh1"/>
+                    <tabBarItem key="tabBarItem" title="我的" image="tool_0" selectedImage="tool_0_selected" id="usf-F1-sh1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="zcN-Qp-Vtp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1053,17 +1053,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1" width="25" height="25"/>
-        <image name="1_selected" width="25" height="25"/>
         <image name="background2" width="425" height="755"/>
         <image name="bg_0" width="250" height="444"/>
         <image name="bg_1" width="391" height="512"/>
         <image name="bg_5" width="78" height="138"/>
         <image name="check_icon" width="17" height="17"/>
-        <image name="common_background" width="133" height="237"/>
+        <image name="common_background" width="425" height="755"/>
         <image name="exer_icon_jds_hover" width="257" height="256"/>
         <image name="shake_0" width="52" height="52"/>
         <image name="shake_1" width="52" height="52"/>
+        <image name="tool_0" width="25" height="25"/>
+        <image name="tool_0_selected" width="25" height="25"/>
+        <image name="tool_1" width="34" height="34"/>
+        <image name="tool_2" width="25" height="24"/>
+        <image name="tool_2_selected" width="25" height="24"/>
         <image name="v_0" width="39" height="39"/>
         <image name="v_1" width="39" height="39"/>
     </resources>

@@ -58,8 +58,8 @@
         _opArray = [aDecoder decodeObjectForKey:kopArray];
         _answer = [aDecoder decodeObjectForKey:kanswer];
         _statusArray = [aDecoder decodeObjectForKey:kstatusArray];
-        _done = [aDecoder decodeObjectForKey:kdone];
-        _isRight = [aDecoder decodeObjectForKey:kisRight];
+        _done = [aDecoder decodeBoolForKey:kdone];
+        _isRight = [aDecoder decodeBoolForKey:kisRight];
     }
     return self;
 }

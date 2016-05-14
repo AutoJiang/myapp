@@ -78,6 +78,7 @@
 		C9D777891BF1096300E87542 /* subject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D777881BF1096300E87542 /* subject.m */; };
 		C9D82F641C95D15600AAA52E /* ATTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D82F631C95D15600AAA52E /* ATTableViewCell.m */; };
 		C9D9053D1C9E394500C271C0 /* ATViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D9053C1C9E394500C271C0 /* ATViewController.m */; };
+		C9E593AF1CE70A100071A56A /* ATbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E593AE1CE70A100071A56A /* ATbutton.m */; };
 		C9E5A0C01CDD93EF00F7BCE8 /* aboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0A51CDD93EF00F7BCE8 /* aboutUsViewController.m */; };
 		C9E5A0C11CDD93EF00F7BCE8 /* briefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0A71CDD93EF00F7BCE8 /* briefViewController.m */; };
 		C9E5A0C21CDD93EF00F7BCE8 /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E5A0A91CDD93EF00F7BCE8 /* loginViewController.m */; };
@@ -241,6 +242,8 @@
 		C9D82F631C95D15600AAA52E /* ATTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATTableViewCell.m; sourceTree = "<group>"; };
 		C9D9053B1C9E394500C271C0 /* ATViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATViewController.h; sourceTree = "<group>"; };
 		C9D9053C1C9E394500C271C0 /* ATViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATViewController.m; sourceTree = "<group>"; };
+		C9E593AD1CE70A100071A56A /* ATbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATbutton.h; sourceTree = "<group>"; };
+		C9E593AE1CE70A100071A56A /* ATbutton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATbutton.m; sourceTree = "<group>"; };
 		C9E5A0A41CDD93EF00F7BCE8 /* aboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aboutUsViewController.h; sourceTree = "<group>"; };
 		C9E5A0A51CDD93EF00F7BCE8 /* aboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = aboutUsViewController.m; sourceTree = "<group>"; };
 		C9E5A0A61CDD93EF00F7BCE8 /* briefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = briefViewController.h; sourceTree = "<group>"; };
@@ -414,6 +417,8 @@
 				C9C3A8281CDF367F00B9987C /* commetTableViewCell.xib */,
 				C986FBDF1CE1B3D00029EC75 /* ATshowView.h */,
 				C986FBE01CE1B3D00029EC75 /* ATshowView.m */,
+				C9E593AD1CE70A100071A56A /* ATbutton.h */,
+				C9E593AE1CE70A100071A56A /* ATbutton.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -810,6 +815,7 @@
 				C9E5A0C91CDD93EF00F7BCE8 /* readViewController.m in Sources */,
 				C9D82F641C95D15600AAA52E /* ATTableViewCell.m in Sources */,
 				C9E5A0C01CDD93EF00F7BCE8 /* aboutUsViewController.m in Sources */,
+				C9E593AF1CE70A100071A56A /* ATbutton.m in Sources */,
 				C948DE611CD5E90E00667EEC /* MJMember.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -76,7 +76,7 @@
         }
     }
     if (self.showType == showTypeDouble) {
-        H += 10;
+        H += 20;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
         btn.x = self.width * 0.1;
         btn.y = H;
@@ -86,7 +86,6 @@
         btn.backgroundColor = [UIColor greenColor];
         [btn addTarget:self action:@selector(btnOnclick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
-        
         H +=  btn.height +10;
     }
     self.contentSize = CGSizeMake(self.width , H);
@@ -122,6 +121,7 @@
             data.statusArray[i] = [NSNumber numberWithInteger:statusRight];
         }
     }
+    self.data.done = YES;
     if ([answer isEqualToString:self.data.answer]){
         self.data.isRight = YES;
         NSLog(@"right");

@@ -45,7 +45,11 @@ BOOL isOut;
     //设置tab bar 颜色
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:227.0/255.0 green:28.0/255.0 blue:31.0/255.0 alpha:1]];
     [[UITabBar appearance] setBarTintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
+    
+    //设置nav bar 颜色
     [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
     return YES;
 }
 
