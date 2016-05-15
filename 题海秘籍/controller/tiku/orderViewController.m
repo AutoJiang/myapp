@@ -283,6 +283,10 @@
     _index = -1;
     [self changeView:1];
     [self redoneBtn];
+    _rightCount = 0;
+    _wrongCount = 0;
+    _upAllCount = 0;
+    [self reflashToolBtn];
 }
 
 -(void)goBack{
