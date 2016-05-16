@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ATViewController.h"
+#import "orderViewController.h"
 
-@interface examinationViewController : ATViewController
+@interface examinationViewController :orderViewController
 
 @property (nonatomic,strong)NSMutableArray *singleTpic;
 @property (nonatomic,strong)NSMutableArray *doubleTpic;
-
-@property(nonatomic ,strong)NSString *name;
 
 @end

@@ -24,7 +24,7 @@
     
 //    self.size = CGSizeMake(60, rect.size.height);
     [self setTintColor:[UIColor grayColor]];
-    [self setBackgroundColor:[UIColor redColor]];
+//    [self setBackgroundColor:[UIColor redColor]];
 }
 
 -(CGRect)imageRectForContentRect:(CGRect)contentRect{

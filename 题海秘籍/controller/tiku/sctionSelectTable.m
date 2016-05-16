@@ -534,7 +534,23 @@ static NSString *ksubSection = @"menuSubSection";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath * indexpath = [self.tableView indexPathForSelectedRow];
-    NSInteger section = [sender integerValue];
+    if([segue.destinationViewController isKindOfClass:[searchViewController class]]){
+        searchViewController *sv =segue.destinationViewController;
+        for (int i = 0; i<self.Singletopic.count; i++) {
+            NSMutableArray *temp = self.Singletopic[i];
+            if (sv.allArray ==nil) {
+                sv.allArray = [NSMutableArray arrayWithArray:temp];
+            }else{
+                [sv.allArray addObjectsFromArray:temp];
+            }
+        }
+        for (int i = 0; i<self.Doubletopic.count; i++) {
+            NSMutableArray *temp = self.Doubletopic[i];
+            [sv.allArray addObjectsFromArray:temp];
+        }
+        return;
+    }
+    NSInteger section  = [sender integerValue];
     if(section == 0){
         readViewController *rd =segue.destinationViewController;
         rd.tpic = [NSMutableArray arrayWithArray:self.currentTpic[indexpath.row-1]];
@@ -589,6 +605,7 @@ static NSString *ksubSection = @"menuSubSection";
     }else if (section == 4){
         examinationViewController *ev = segue.destinationViewController;
         ev.voice = self.voice;
+        ev.delegate = self;
         for (NSMutableArray *ar in self.Singletopic) {
             [ev.singleTpic addObjectsFromArray:ar];
         }
@@ -596,21 +613,6 @@ static NSString *ksubSection = @"menuSubSection";
             [ev.doubleTpic addObjectsFromArray:ar];
         }
         ev.name = self.name;
-    }
-    else if([segue.destinationViewController isKindOfClass:[searchViewController class]]){
-        searchViewController *sv =segue.destinationViewController;
-        for (int i = 0; i<self.Singletopic.count; i++) {
-            NSMutableArray *temp = self.Singletopic[i];
-            if (sv.allArray ==nil) {
-                sv.allArray = [NSMutableArray arrayWithArray:temp];
-            }else{
-                [sv.allArray addObjectsFromArray:temp];
-            }
-        }
-        for (int i = 0; i<self.Doubletopic.count; i++) {
-            NSMutableArray *temp = self.Doubletopic[i];
-            [sv.allArray addObjectsFromArray:temp];
-        }
     }
 }
 @end

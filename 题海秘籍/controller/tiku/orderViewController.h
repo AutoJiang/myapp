@@ -8,6 +8,8 @@
 
 #import "ATViewController.h"
 #import "data.h"
+#import "ATshowView.h"
+#import "ATbutton.h"
 @class orderViewController;
 @protocol orderViewControllerDelegate <NSObject>
 
@@ -28,9 +30,36 @@
 
 @property(nonatomic,weak)id<orderViewControllerDelegate>delegate;
 
+@property (nonatomic ,assign)NSInteger upAllCount;
+
+@property (nonatomic, assign)BOOL isExam;
+
+@property (nonatomic ,weak) ATbutton *rBtn;
+
+@property (weak, nonatomic) ATbutton *wBtn;
+
+@property (nonatomic, copy) void(^resetYes)();
+
+@property (nonatomic, copy) void(^resetNo)();
+
+
+-(void)setSwipe;
+
 -(NSString *)filePath;
 
+-(void)setBtnEnable;
+
+-(void)setBtnUnable;
+
 -(void)delRight;
+
+-(void)autoChange;
+
+-(void)loadNext;
+
+-(void)saveToFile;
+
+-(void)resetData;
 
 @end
 

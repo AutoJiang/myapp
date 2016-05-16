@@ -253,7 +253,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzR-2H-65h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1619" y="1617"/>
+            <point key="canvasLocation" x="-1689" y="1699"/>
         </scene>
         <!--Brief View Controller-->
         <scene sceneID="0oQ-pu-SDO">
@@ -413,7 +413,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iXn-Eq-XKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1278" y="272"/>
+            <point key="canvasLocation" x="-1540" y="76"/>
         </scene>
         <!--题库搜索-->
         <scene sceneID="X9k-kz-e4a">
@@ -911,7 +911,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="67q-x3-HmM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1291" y="1012"/>
+            <point key="canvasLocation" x="-897" y="950"/>
         </scene>
         <!--Error View Controller-->
         <scene sceneID="elG-FP-IJC">
@@ -982,9 +982,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bg_1" translatesAutoresizingMaskIntoConstraints="NO" id="UGM-78-tL2">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eef-6x-ggW" userLabel="time">
                                 <rect key="frame" x="251" y="73" width="51" height="24"/>
                                 <constraints>
@@ -995,35 +992,11 @@
                                 <color key="textColor" red="1" green="0.32517304819999998" blue="0.054707129" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWa-xC-tEX">
-                                <rect key="frame" x="16" y="258" width="288" height="256.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="VWa-xC-tEX" secondAttribute="height" multiplier="9:8" id="5bl-qZ-zwh"/>
-                                </constraints>
-                            </scrollView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" semanticContentAttribute="playback" translatesAutoresizingMaskIntoConstraints="NO" id="oDb-CB-fBR">
-                                <rect key="frame" x="16" y="93" width="288" height="154"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="oDb-CB-fBR" secondAttribute="height" multiplier="144:77" id="ilB-94-Aip"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UGM-78-tL2" firstAttribute="top" secondItem="GNQ-pV-wcM" secondAttribute="bottom" id="0jM-tw-re9"/>
-                            <constraint firstItem="VWa-xC-tEX" firstAttribute="centerX" secondItem="S0k-md-hK2" secondAttribute="centerX" id="8ri-1j-Xx9"/>
-                            <constraint firstAttribute="trailing" secondItem="UGM-78-tL2" secondAttribute="trailing" id="CcI-ov-VrL"/>
-                            <constraint firstItem="UGM-78-tL2" firstAttribute="leading" secondItem="S0k-md-hK2" secondAttribute="leading" id="IgS-dm-ldL"/>
-                            <constraint firstItem="VWa-xC-tEX" firstAttribute="centerY" secondItem="S0k-md-hK2" secondAttribute="centerY" multiplier="1.36" id="hdg-bt-vaw"/>
                             <constraint firstItem="Eef-6x-ggW" firstAttribute="centerY" secondItem="S0k-md-hK2" secondAttribute="centerY" multiplier="0.3" id="iDZ-Be-MIS"/>
-                            <constraint firstItem="oDb-CB-fBR" firstAttribute="centerX" secondItem="S0k-md-hK2" secondAttribute="centerX" id="lqh-iE-ynD"/>
-                            <constraint firstItem="VWa-xC-tEX" firstAttribute="width" secondItem="oDb-CB-fBR" secondAttribute="width" id="nKE-nD-U7j"/>
                             <constraint firstItem="Eef-6x-ggW" firstAttribute="centerX" secondItem="S0k-md-hK2" secondAttribute="centerX" multiplier="1.73" id="q3u-iF-pUu"/>
-                            <constraint firstItem="Ary-lO-pRE" firstAttribute="top" secondItem="UGM-78-tL2" secondAttribute="bottom" id="uSa-ho-1xc"/>
-                            <constraint firstItem="oDb-CB-fBR" firstAttribute="width" secondItem="UGM-78-tL2" secondAttribute="width" multiplier="0.9" id="wjk-Pt-nGH"/>
-                            <constraint firstItem="oDb-CB-fBR" firstAttribute="centerY" secondItem="S0k-md-hK2" secondAttribute="centerY" multiplier="0.6" id="xfC-BS-vlK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="模拟考场" id="vuQ-A2-8cr">
@@ -1041,24 +1014,20 @@
                     </navigationItem>
                     <connections>
                         <outlet property="item" destination="sac-3K-Dho" id="eSa-V2-6Fq"/>
-                        <outlet property="optionalView" destination="VWa-xC-tEX" id="QFq-GO-6Xf"/>
                         <outlet property="timeLabel" destination="Eef-6x-ggW" id="0F1-QU-MJE"/>
-                        <outlet property="topicTextField" destination="oDb-CB-fBR" id="oWG-Cg-ZzA"/>
-                        <segue destination="PKc-oy-EdG" kind="push" identifier="examToRead" id="0Y8-g4-QuY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGy-PP-ofG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1826" y="892"/>
+            <point key="canvasLocation" x="-1752" y="992"/>
         </scene>
     </scenes>
     <resources>
         <image name="background2" width="425" height="755"/>
         <image name="bg_0" width="250" height="444"/>
-        <image name="bg_1" width="391" height="512"/>
         <image name="bg_5" width="78" height="138"/>
         <image name="check_icon" width="17" height="17"/>
-        <image name="common_background" width="425" height="755"/>
+        <image name="common_background" width="133" height="237"/>
         <image name="exer_icon_jds_hover" width="257" height="256"/>
         <image name="shake_0" width="52" height="52"/>
         <image name="shake_1" width="52" height="52"/>

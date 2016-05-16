@@ -13,14 +13,17 @@
 
 @property (weak, nonatomic)data *data;
 
+@property (weak, nonatomic)UIButton *btn;
+
 @end
 
 @implementation ATshowView
 
 
--(ATshowView*)initWithFrame:(CGRect)frame withFont:(UIFont*)font data:(data*)data{
+-(ATshowView*)initWithFrame:(CGRect)frame withFont:(UIFont*)font data:(data*)data exam:(BOOL)isExam{
     self = [super initWithFrame:frame];
     if (self) {
+        self.isExam =isExam;
         [self reloadData:data];
         _font= font;
     }
@@ -56,41 +59,65 @@
         [self addSubview:box];
         status s = [data.statusArray[i] integerValue];
         [box setSelected:NO];
-        switch (s) {
-            case statusRight:
-                [box setImage:[UIImage imageNamed:@"check_icon"] forState:UIControlStateNormal];
-                break;
-            case statusError:
-                [box setImage:[UIImage imageNamed:@"ErrorIcon"] forState:UIControlStateNormal];
-                break;
-            case statusSelect:
-                [box setSelected:YES];
-                break;
-            case statusNomal:
-                break;
-            default:
-                break;
+        if (!self.isExam) {
+            switch (s) {
+                case statusRight:
+                    [box setImage:[UIImage imageNamed:@"check_icon"] forState:UIControlStateNormal];
+                    break;
+                case statusError:
+                    [box setImage:[UIImage imageNamed:@"ErrorIcon"] forState:UIControlStateNormal];
+                    break;
+                case statusSelect:
+                    [box setSelected:YES];
+                    break;
+                case statusNomal:
+                    break;
+                default:
+                    break;
+            }
         }
         if (_data.done) {
             box.userInteractionEnabled = NO;
         }
     }
-    if (self.showType == showTypeDouble) {
+    if (self.showType == showTypeDouble || _data.answer.length >1) {
         H += 20;
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.x = self.width * 0.1;
         btn.y = H;
         btn.width = self.width *0.8;
         btn.height = 44;
-        [btn setTitle:@"确认答案" forState:UIControlStateNormal];
-        btn.backgroundColor = [UIColor greenColor];
+        btn.layer.cornerRadius = 10;
+        [self didBtn:btn da:data];
+        
         [btn addTarget:self action:@selector(btnOnclick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
+        _btn = btn;
         H +=  btn.height +10;
+        btn.enabled = !data.done;
     }
     self.contentSize = CGSizeMake(self.width , H);
     _data = data;
 }
+
+-(void)didBtn:(UIButton*)btn da:(data*)data{
+    NSString *title;
+    btn.titleLabel.backgroundColor = [UIColor clearColor];
+    if (!data.done) {
+        title = @"确认答案";
+        btn.backgroundColor = [UIColor orangeColor];
+    }else{
+        if (data.isRight) {
+            title = @"您答对了!";
+            btn.backgroundColor = [UIColor greenColor];
+        }else{
+            title = @"您答错了!";
+            btn.backgroundColor = [UIColor redColor];
+        }
+    }
+    [btn setTitle:title forState:UIControlStateNormal];
+}
+
 -(void)updateHeight{
     CGSize contentSize = [_topicTextField.text sizeWithFont:_font constrainedToSize:CGSizeMake(_topicTextField.width, MAXFLOAT) lineBreakMode:NSLineBreakByCharWrapping];
     _topicTextField.height = contentSize.height+10;
@@ -98,7 +125,7 @@
 
 -(void)btnOnclick:(UIButton *)btn{
     btn.selected = YES;
-    [btn setTitle:[self comfirm]? @"您答对了":@"您答错了" forState:UIControlStateSelected];
+    [self comfirm];
     btn.userInteractionEnabled = NO;
 }
 
@@ -133,16 +160,21 @@
     for (ATCheckBox *box  in self.subviews) {
         if ([box isKindOfClass:[ATCheckBox class]]) {
             status s = [self.data.statusArray[box.tag]integerValue];
-            [box setSelected:NO];
-            if (s == statusRight) {
-                [box setImage:[UIImage imageNamed:@"check_icon"] forState:UIControlStateNormal];
-            }else if (s == statusError){
-                [box setImage:[UIImage imageNamed:@"ErrorIcon"] forState:UIControlStateNormal];
+            if (!self.isExam) {
+                [box setSelected:NO];
+            }
+            if (s == statusRight && !self.isExam) {
+                    [box setImage:[UIImage imageNamed:@"check_icon"] forState:UIControlStateNormal];
+                }else if (s == statusError && !self.isExam){
+                    [box setImage:[UIImage imageNamed:@"ErrorIcon"] forState:UIControlStateNormal];
             }
         }
         box.userInteractionEnabled = NO;
     }
     self.data.done = YES;
+    
+    [self didBtn:self.btn da:data];
+    
     return self.data.isRight;
 }
 #pragma ATCheckBoxDelegate

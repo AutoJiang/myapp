@@ -7,9 +7,8 @@
 //
 
 #import "orderViewController.h"
-#import "ATshowView.h"
 #import "data.h"
-#import "ATbutton.h"
+
 #define screenWidth self.view.frame.size.width
 #define screenHeight self.view.frame.size.height
 #define line 6
@@ -43,14 +42,6 @@
 
 @property (nonatomic ,assign)NSInteger wrongCount;
 
-@property (nonatomic ,assign)NSInteger upAllCount;
-
-@property (nonatomic ,weak) ATbutton *rBtn;
-
-@property (weak, nonatomic) ATbutton *wBtn;
-
-
-
 @end
 
 @implementation orderViewController
@@ -58,11 +49,10 @@
 -(void)setSwipe{
     self.leftSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(loadNext)];
     self.leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.mainView addGestureRecognizer:self.leftSwipe];
     
     self.rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(loadLast)];
     self.rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
-    
-    [self.mainView addGestureRecognizer:self.leftSwipe];
     [self.mainView addGestureRecognizer:self.rightSwipe];
 }
 
@@ -81,13 +71,13 @@
 }
 
 -(void)changeView:(int)type{
+    self.index += type;
     if (self.lastBtn !=nil) {
          data *da = self.datas[self.lastIndex];
         if (!da.done) {
             [self.lastBtn setBackgroundColor:[UIColor whiteColor]];
         }
     }
-    self.index += type;
     data *temp = self.datas[self.index];
     NSLog(@"%@",temp.title);
     UIButton *btn = self.btnArray[self.index];
@@ -107,9 +97,13 @@
     [self trsanformAnimationIndex:2 withindex:3 type: type ==1? @"pageCurl":@"pageUnCurl"];
     tpView = self.mainView;
     self.mainView = self.nextView;
+    
     [self setSwipe];
+    
     self.nextView = tpView;
     [self.nextView removeFromSuperview];
+    
+    [self saveToFile];
 }
 
 -(void)trsanformAnimationIndex:(NSInteger )indexA withindex:(NSInteger)indexB type:(NSString *)type{
@@ -128,7 +122,7 @@
 }
 
 -(ATshowView *)getMainViewInsert:(UIView *)belowSubview data:(data *)temp{
-    ATshowView *mainView=[[ATshowView alloc]initWithFrame:CGRectMake(0,44, screenWidth, screenHeight*0.9-44) withFont:self.font data:temp];
+    ATshowView *mainView=[[ATshowView alloc]initWithFrame:CGRectMake(0,44, screenWidth, screenHeight*0.9-44) withFont:self.font data:temp exam:self.isExam];
     mainView.showType = self.type;
     [self.view insertSubview:mainView belowSubview:belowSubview];
     [mainView reloadData:temp];
@@ -140,6 +134,12 @@
         _wrongCount++;
         _upAllCount++;
         [self reflashToolBtn];
+        [self autoChange];
+        [self saveToFile];
+        if (self.upAllCount == self.datas.count) {
+            [self resetData];
+        }
+
     };
     mainView.deleteRight = ^(){
         [self delRight];
@@ -147,10 +147,21 @@
         _rightCount++;
         _upAllCount++;
         [self reflashToolBtn];
+        [self autoChange];
+        [self saveToFile];
+        if (self.upAllCount == self.datas.count) {
+            [self resetData];
+        }
     };
     return mainView;
 }
+
+//错题集需要
 -(void)delRight{
+    return;
+}
+//模拟考场需要
+-(void)autoChange{
     return;
 }
 
@@ -177,6 +188,10 @@
     [self.rBtn setTitle:[NSString stringWithFormat:@"%ld",_rightCount] forState:UIControlStateNormal];
     [self.wBtn setTitle:[NSString stringWithFormat:@"%ld",_wrongCount] forState:UIControlStateNormal];
     [self.listBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",_upAllCount,self.datas.count] forState:UIControlStateNormal];
+    if (self.upAllCount == self.tpArray.count) {
+        self.rBtn.titleLabel.alpha = 1;
+        self.wBtn.titleLabel.alpha = 1;
+    }
 }
 
 - (void)viewDidLoad {
@@ -211,6 +226,8 @@
     [wBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [listView addSubview:wBtn];
     _wBtn = wBtn;
+    
+    [self setBtnAlpha];
     
     ATbutton *listBtn = [ATbutton buttonWithType:UIButtonTypeCustom];
     listBtn.center = CGPointMake( screenWidth*0.6,10);
@@ -258,12 +275,12 @@
     [self load];
     [self reflashToolBtn];
     
-    UIButton *lButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [lButton setImage:[UIImage imageNamed:@"header_icon_back"] forState:UIControlStateNormal];
-    lButton.frame = CGRectMake(0, 0, 30, 50);
-    [lButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * leftBarItem = [[UIBarButtonItem alloc]initWithCustomView:lButton];;
-    self.navigationItem.leftBarButtonItem = leftBarItem;
+//    UIButton *lButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [lButton setImage:[UIImage imageNamed:@"header_icon_back"] forState:UIControlStateNormal];
+//    lButton.frame = CGRectMake(0, 0, 30, 50);
+//    [lButton addTarget:self action:@selector(goBack) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem * leftBarItem = [[UIBarButtonItem alloc]initWithCustomView:lButton];;
+//    self.navigationItem.leftBarButtonItem = leftBarItem;
     
     UIButton *rButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rButton.frame = CGRectMake(0, 0, 90, 30);
@@ -274,27 +291,49 @@
 }
 
 -(void)resetData{
-    self.datas = nil;
-    _index = 0;
+    NSString *title = self.upAllCount == self.datas.count ? @"您已完成答题" : [NSString stringWithFormat:@"您还有%ld道题目没有完成",self.datas.count - self.upAllCount];
+    float rate = self.rightCount*1.0/self.datas.count;
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:[NSString stringWithFormat:@"该轮练习的正确率为%.2f%%\n 是否要重置做题?",rate*100 ]preferredStyle:UIAlertControllerStyleAlert];
+    NSString *subTitle = self.upAllCount == self.datas.count ? @"否,我还要看做题纪录":@"否,我还要继续做题";
+    UIAlertAction *actionA = [UIAlertAction actionWithTitle:subTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        if (self.resetNo!=nil) {
+            self.resetNo();
+        }
+    }];
+    UIAlertAction *actionB = [UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        _rightCount = 0;
+        _wrongCount = 0;
+        _upAllCount = 0;
+        self.datas = nil;
+        self.index = 0;
+        [self saveToFile];
+        self.index = -1;
+        if (self.resetYes !=nil) {
+            self.resetYes();
+        }
+        [self changeView:1];
+        [self setBtnUnable];
+        [self redoneBtn];
+        [self reflashToolBtn];
+        [self setBtnAlpha];
+    }];
+    [alert addAction:actionA];
+    [alert addAction:actionB];
+    [self presentViewController:alert animated:true completion:nil];
+}
+
+-(void)setBtnAlpha{
+    if (self.isExam) {
+        self.rBtn.titleLabel.alpha = 0;
+        self.wBtn.titleLabel.alpha = 0;
+    }
+}
+
+-(void)saveToFile{
     NSString *path = [self filePath];
     [NSKeyedArchiver archiveRootObject:_datas toFile:path];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger :_index forKey:self.record];
-    _index = -1;
-    [self changeView:1];
-    [self redoneBtn];
-    _rightCount = 0;
-    _wrongCount = 0;
-    _upAllCount = 0;
-    [self reflashToolBtn];
-}
-
--(void)goBack{
-    NSString *path = [self filePath];
-    [NSKeyedArchiver archiveRootObject:self.datas toFile:path];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger :self.index forKey:self.record];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)chooseBtn:(UIButton *)btn{
@@ -318,6 +357,20 @@
         self.menView.alpha = 0;
     }
 }
+
+-(void)setBtnEnable{
+    self.listBtn.enabled = YES;
+    self.leftSwipe.enabled = YES;
+    self.rightSwipe.enabled = YES;
+}
+
+-(void)setBtnUnable{
+    if (self.isExam) {
+        self.listBtn.enabled = NO;
+        self.leftSwipe.enabled = NO;
+    }
+}
+
 -(void)redoneBtn{
     for (UIButton *btn in self.scrollView.subviews) {
         if ([btn isKindOfClass:[UIButton class]]) {
